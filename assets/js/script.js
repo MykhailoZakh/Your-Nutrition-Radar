@@ -2,6 +2,8 @@
 let inputEL = document.querySelector("#input");
 let formEL = $("#form");
 let dietInputEL =document.querySelector("#dietInput");
+
+// function for event listener buton
 let inputListener = function(event){
     event.preventDefault();
     let inputValue = inputEL.value.trim();
@@ -10,7 +12,7 @@ let inputListener = function(event){
     takeRecipe(inputValue, dietInput);
  
 }
-
+// function for recipe api
 function takeRecipe(value, diet){
     let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL&diet=${diet}`;
 
@@ -39,6 +41,7 @@ document.addEventListener("mouseup", function (e) {
     }
 });
 
+// event listener for submit button
 formEL.on("click", "#recipe-button", inputListener);
 
 // takeRecipe();
