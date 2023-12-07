@@ -40,7 +40,6 @@ document.addEventListener("mouseup", function (e) {
 
 formEL.on("click", ".btn", inputListener);
 
-formEL.on("click", ".btn", inputListener);
 // takeRecipe();
 
 
