@@ -1,7 +1,7 @@
 // event listener for recipes
 let inputEL = document.querySelector("#input");
 let formEL = $("#form");
-let dietInputEL =document.querySelector("#dietInput");
+let dietInputEL = document.querySelector("#dietInput");
 
 // function for event listener buton
 let inputListener = function(event){
