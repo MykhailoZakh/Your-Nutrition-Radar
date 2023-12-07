@@ -5,14 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Your Nutrition Radar</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
-
-<!-- What Kenny added to header, the logo, beginning -->
-    <img src="/assets/Images/Your-Nutrition-Radar-Logo.png" alt="Your Nutrition Radar Logo" class="header-icon">
+    <title>Your Nutrition Radar</title>
     <style>
         .header-icon {
             width: 200px;
@@ -24,22 +20,40 @@
             border-right: 10px;
         }
     </style>
-<!-- What Kenny added to header, the logo, end -->
-
 </head>
 
 <body>
-
-</body>
-
-</html>
-
+    <!-- What Kenny added to header, the logo, beginning -->
+    <img src="/assets/Images/Your-Nutrition-Radar-Logo.png" alt="Your Nutrition Radar Logo" class="header-icon">
     <form id="form">
         <div class="mb-3 col-5">
             <label for="exampleInputPassword1" class="form-label">Recipe</label>
             <input type="recipe" class="form-control" id="input">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div class="mb-3 col-5">
+            <label for="exampleInputPassword1" class="form-label">Ingredients</label>
+            <input type="ingredients" class="form-control" id="ingredientsInput">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3 col-5">
+            <label for="exampleInputPassword1" class="form-label">Diet</label>
+            <input type="text" class="form-control" id="dietInput" onclick="showDietOptions()">
+            <div id="dietOptions" style="max-height: 150px; overflow-y: auto; position: absolute; display: none;">
+                <ul>
+                    <li><a href="#" onclick="selectDiet('balanced')">Balanced</a></li>
+                    <li><a href="#" onclick="selectDiet('high-fiber')">High-Fiber</a></li>
+                    <li><a href="#" onclick="selectDiet('high-protein')">High-Protein</a></li>
+                    <li><a href="#" onclick="selectDiet('low-carb')">Low-Carb</a></li>
+                    <li><a href="#" onclick="selectDiet('low-fat')">Low-Fat</a></li>
+                    <li><a href="#" onclick="selectDiet('low-sodium')">Low-Sodium</a></li>
+                </ul>
+            </div>
+        </div>
+
+
     </form>
     <section>
         <p id="object">
@@ -54,6 +68,10 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
         integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>
+
+
+
+
 </body>
 
 </html>
