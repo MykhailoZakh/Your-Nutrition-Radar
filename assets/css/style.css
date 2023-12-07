@@ -1,6 +1,3 @@
-* {
-    /* border: 1px solid red; */
-} 
 
 body {
     align-items: center;
@@ -34,4 +31,8 @@ label {
 .header-icon {
     max-width: 200px;
     max-height: 150px;
+}
+
+#dietInput:hover{
+    cursor: pointer;
 }
