@@ -29,12 +29,12 @@ let ingredientsListener = function(event) {
     event.preventDefault();
     let ingredientsValue = ingredientsInputEL.value.trim();
     console.log(ingredientsValue);
-    takeIngerdients(ingredientsValue);
+    takeIngredients(ingredientsValue);
 }
-// function for ingerdients 
-function takeIngerdients(value){
-    let ingerdientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
-    fetch(ingerdientsURL)
+// function for ingredients 
+function takeIngredients(value){
+    let ingredientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
+    fetch(ingredientsURL)
     .then(function(response){
         return response.json();
     }).then(function(data){
