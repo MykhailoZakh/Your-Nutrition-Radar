@@ -15,17 +15,19 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
 
+        <!-- Ingredients search bar -->
         <div class="mb-3 col-5">
             <label for="exampleInputPassword1" class="form-label">Ingredients</label>
             <input type="ingredients" class="form-control" id="ingredientsInput">
         </div>
-
         <button type="submit" class="btn btn-primary">Submit</button>
+
+        <!-- This is the diet search bar and options -->
         <div class="mb-3 col-5">
             <label for="exampleInputPassword1" class="form-label">Diet</label>
             <input type="text" class="form-control" id="dietInput" onclick="showDietOptions()">
             <div id="dietOptions" style="max-height: 150px; overflow-y: auto; position: absolute; display: none;">
-              <ul>
+              <ul style="list-style-type: none; padding: 0; margin: 0;"> <!--This UL style removes the bullet points from the scroll bar list.-->
                 <li><a href="#" onclick="selectDiet('balanced')">Balanced</a></li>
               <li><a href="#" onclick="selectDiet('high-fiber')">High-Fiber</a></li>
               <li><a href="#" onclick="selectDiet('high-protein')">High-Protein</a></li>
