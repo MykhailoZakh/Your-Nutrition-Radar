@@ -1,5 +1,7 @@
+// event listener for recipes
 let inputEL = document.querySelector("#input");
 let formEL = $("#form");
+let diet = "high-protein";
 let inputListener = function(event){
     event.preventDefault();
     let inputValue = inputEL.value.trim();
@@ -9,7 +11,7 @@ let inputListener = function(event){
 }
 
 function takeRecipe(value){
-    let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL`;
+    let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL&diet=${diet}`;
 
     fetch(recipeURL)
     .then(function(response){
@@ -21,4 +23,6 @@ function takeRecipe(value){
 
 formEL.on("click", ".btn", inputListener);
 // takeRecipe();
+
+
 
