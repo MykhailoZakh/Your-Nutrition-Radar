@@ -19,6 +19,25 @@ function takeRecipe(value){
     })
 }
 
+function showDietOptions() {
+    document.getElementById("dietOptions").style.display = "block";
+}
+
+function selectDiet(diet) {
+    document.getElementById("dietInput").value = diet;
+    document.getElementById("dietOptions").style.display = "none";
+}
+
+// Closes diet options when clicking outside the options
+document.addEventListener("mouseup", function (e) {
+    var dietOptions = document.getElementById("dietOptions");
+    if (dietOptions.style.display === "block" && !dietOptions.contains(e.target) && e.target.id !== "dietInput") {
+        dietOptions.style.display = "none";
+    }
+});
+
+formEL.on("click", ".btn", inputListener);
+
 formEL.on("click", ".btn", inputListener);
 // takeRecipe();
 
