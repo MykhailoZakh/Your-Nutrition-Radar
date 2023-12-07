@@ -1,9 +1,10 @@
 // event listener for recipes
 let inputEL = document.querySelector("#input");
 let formEL = $("#form");
-let dietInputEL =document.querySelector("#dietInput");
+let dietInputEL = document.querySelector("#dietInput");
+let ingredientsInputEL = document.querySelector("#ingredientsInput");
 
-// function for event listener buton
+// function for event listener for recipe button
 let inputListener = function(event){
     event.preventDefault();
     let inputValue = inputEL.value.trim();
@@ -23,7 +24,23 @@ function takeRecipe(value, diet){
         console.log(data);
     })
 }
-
+// function for event listener for ingredients button
+let ingredientsListener = function(event) {
+    event.preventDefault();
+    let ingredientsValue = ingredientsInputEL.value.trim();
+    console.log(ingredientsValue);
+    takeIngerdients(ingredientsValue);
+}
+// function for ingerdients 
+function takeIngerdients(value){
+    let ingerdientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
+    fetch(ingerdientsURL)
+    .then(function(response){
+        return response.json();
+    }).then(function(data){
+        console.log(data);
+    })
+}
 function showDietOptions() {
     document.getElementById("dietOptions").style.display = "block";
 }
@@ -43,7 +60,7 @@ document.addEventListener("mouseup", function (e) {
 
 // event listener for submit button
 formEL.on("click", "#recipe-button", inputListener);
-
+formEL.on("click", "#ingredients-button",ingredientsListener);
 // takeRecipe();
 
 
