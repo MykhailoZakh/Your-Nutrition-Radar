@@ -3,7 +3,7 @@ let inputEL = document.querySelector("#input");
 let formEL = $("#form");
 let dietInputEL = document.querySelector("#dietInput");
 
-// function for event listener buton
+// function for event listener for recipe button
 let inputListener = function(event){
     event.preventDefault();
     let inputValue = inputEL.value.trim();
@@ -23,8 +23,18 @@ function takeRecipe(value, diet){
         console.log(data);
     })
 }
-
+// function for event listener for ingredients button
+let 
 // function for ingerdients 
+function ingerdients(value){
+    let ingerdientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
+    fetch(ingerdientsURL)
+    .then(function(response){
+        return response.json();
+    }).then(function(data){
+        console.log(data);
+    })
+}
 function showDietOptions() {
     document.getElementById("dietOptions").style.display = "block";
 }
