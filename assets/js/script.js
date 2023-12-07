@@ -24,6 +24,7 @@ function takeRecipe(value, diet){
     })
 }
 
+// function for ingerdients 
 function showDietOptions() {
     document.getElementById("dietOptions").style.display = "block";
 }
