@@ -4,70 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Your Nutrition Radar</title>
-    <style>
-        .header-icon {
-            width: 200px;
-            height: 200px;
-            position: absolute;
-            top: 5px;
-            left: 10px;
-            border-bottom: 10px;
-            border-right: 10px;
-        }
-    </style>
 </head>
 
 <body>
-    <!-- What Kenny added to header, the logo, beginning -->
-    <img src="/assets//Images/Your-Nutrition-Radar-Logo.png" alt="Your Nutrition Radar Logo" class="header-icon">
-    <form id="form">
-        <div class="mb-3 col-5">
-            <label for="exampleInputPassword1" class="form-label">Recipe</label>
-            <input type="recipe" class="form-control" id="input">
-        </div>
-        <button id="recipe-button" type="submit" class="btn btn-primary">Submit</button>
+  <div class="grid-container-full">
 
-        <div class="mb-3 col-5">
-            <label for="exampleInputPassword1" class="form-label">Ingredients</label>
-            <input type="ingredients" class="form-control" id="ingredientsInput">
-        </div>
+    <header class="grid-x header grid-padding-y align-center">
+      <h1 class="cell auto">Your Nutrition Radar</h1>
+    </header>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <div class="mb-3 col-5">
-            <label for="exampleInputPassword1" class="form-label">Diet</label>
-            <input type="text" class="form-control" id="dietInput" onclick="showDietOptions()">
-            <div id="dietOptions" style="max-height: 150px; overflow-y: auto; position: absolute; display: none;">
-                <ul>
-                    <li><a href="#" onclick="selectDiet('balanced')">Balanced</a></li>
-                    <li><a href="#" onclick="selectDiet('high-fiber')">High-Fiber</a></li>
-                    <li><a href="#" onclick="selectDiet('high-protein')">High-Protein</a></li>
-                    <li><a href="#" onclick="selectDiet('low-carb')">Low-Carb</a></li>
-                    <li><a href="#" onclick="selectDiet('low-fat')">Low-Fat</a></li>
-                    <li><a href="#" onclick="selectDiet('low-sodium')">Low-Sodium</a></li>
-                </ul>
-            </div>
-        </div>
+    <form class="grid-container" id="form">
+      <div class="grid-y grid-margin-y bg-light my-2 rounded" style="height: 40%;">
+        <label for="exampleInputPassword1" class="cell form-label">Find a Recipe</label>
+        <input type="recipe" class="cell form-control" id="input">
+        <button type="submit" class="cell btn btn-primary rounded">Submit</button>
+      </div>
 
+      <div class="grid-y grid-margin-y bg-light my-2 rounded" style="height: 40%;">
+          <label for="exampleInputPassword1" class="cell form-label">Search Ingredients</label>
+          <input type="ingredients" class="cell form-control" id="ingredientsInput">
+          <button type="submit" class="cell btn btn-primary rounded">Submit</button>
+      </div>
 
+      <div class="grid-y grid-margin-y bg-light my-2 rounded" style="height: 40%;">
+          <label for="exampleInputPassword1" class="cell form-label">Diet Restrictions</label>
+          <input type="text" class="cell form-control" id="dietInput" onclick="showDietOptions()">
+          <div id="dietOptions" style="max-height: 150px; overflow-y: auto; position: relative; display: none;">
+              <ul>
+                  <li><a href="#" onclick="selectDiet('balanced')">Balanced</a></li>
+                  <li><a href="#" onclick="selectDiet('high-fiber')">High-Fiber</a></li>
+                  <li><a href="#" onclick="selectDiet('high-protein')">High-Protein</a></li>
+                  <li><a href="#" onclick="selectDiet('low-carb')">Low-Carb</a></li>
+                  <li><a href="#" onclick="selectDiet('low-fat')">Low-Fat</a></li>
+                  <li><a href="#" onclick="selectDiet('low-sodium')">Low-Sodium</a></li>
+              </ul>
+          </div>
+      </div>
     </form>
-    <section>
-        <p id="object">
 
-        </p>
-    </section>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-        integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
-    <script src="./assets/js/script.js"></script>
+  <section>
+      <p id="object">
+
+      </p>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+  <script src="./assets/js/script.js"></script>
 
 
 
