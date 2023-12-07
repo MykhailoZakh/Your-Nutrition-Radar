@@ -34,22 +34,22 @@
 
     <form class="grid-container" id="form">
       <div class="grid-y grid-margin-y bg-light my-2 rounded" style="height: 40%;">
-        <label for="exampleInputPassword1" class="cell form-label">Find a Recipe</label>
+        <label for="input" class="cell form-label">Find a Recipe</label>
         <input type="recipe" class="cell form-control" id="input">
         <button type="submit" class="cell btn btn-primary rounded">Submit</button>
       </div>
 
       <div class="grid-y grid-margin-y bg-light my-2 rounded" style="height: 40%;">
-          <label for="exampleInputPassword1" class="cell form-label">Search Ingredients</label>
+          <label for="ingredientsInput" class="cell form-label">Search Ingredients</label>
           <input type="ingredients" class="cell form-control" id="ingredientsInput">
           <button type="submit" class="cell btn btn-primary rounded">Submit</button>
       </div>
 
       <div class="grid-y grid-margin-y bg-light my-2 rounded" style="height: 40%;">
-          <label for="exampleInputPassword1" class="cell form-label">Diet Restrictions</label>
+          <label for="dietInput" class="cell form-label">Diet Restrictions</label>
           <input type="text" class="cell form-control" id="dietInput" onclick="showDietOptions()">
           <div id="dietOptions" style="max-height: 150px; overflow-y: auto; position: relative; display: none;">
-              <ul>
+              <ul style="list-style-type: none; padding: 0; margin: 0;"> 
                   <li><a href="#" onclick="selectDiet('balanced')">Balanced</a></li>
                   <li><a href="#" onclick="selectDiet('high-fiber')">High-Fiber</a></li>
                   <li><a href="#" onclick="selectDiet('high-protein')">High-Protein</a></li>

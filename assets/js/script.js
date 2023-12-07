@@ -3,7 +3,7 @@ let inputEL = document.querySelector("#input");
 let formEL = $("#form");
 let dietInputEL =document.querySelector("#dietInput");
 
-// function for event listener buton
+// function for event listener button
 let inputListener = function(event){
     event.preventDefault();
     let inputValue = inputEL.value.trim();
