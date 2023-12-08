@@ -84,22 +84,23 @@ document.addEventListener("mouseup", function (e) {
 });
 
 // function for print card with object
-function recipesCardPrint(value) {
-    for (let i = 0; i < 4; i++) {
-        let cardBody = $("<section>");
-        cardBody.attr("class", "card")
+function recipesCardPrint(value){
+    for (let i = 0; i < 4; i++){
+        let cardBody = $("<div>");
+        cardBody.attr("class", "card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         let recipeName = $("<h3>");
         recipeName.attr("class", "card-title");
         let image = $("<img>");
-        image.attr("src", `${value.hits[i].recipe.image}`)
+        image.attr("src", `${value.hits[i].recipe.images.REGULAR.url}`)
+        image.attr("class", "header-icon border-dark rounded");
         let dietType = $("<p>");
         dietType.attr("class", "card-text");
         recipeName.text(`${value.hits[i].recipe.label}`);
         dietType.text(`${value.hits[i].recipe.dietLabels}`);
         cardHolderEL.append(cardBody);
         cardBody.append(recipeName);
-        cardBody.append(image);
         cardBody.append(dietType);
+        cardBody.append(image);
     };
 }
 
