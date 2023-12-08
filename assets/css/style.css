@@ -32,6 +32,10 @@ label {
     max-height: 150px;
 }
 
+.card {
+    position: inherit;
+}
+
 #dietInput:hover {
     cursor: pointer;
 }
@@ -56,6 +60,7 @@ label {
 }
 
 .sidebar a {
+    /* z-index: 3; */
     padding: 16px 16px;
     text-decoration: none;
     font-size: 22px;

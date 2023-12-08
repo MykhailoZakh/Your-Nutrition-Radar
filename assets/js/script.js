@@ -11,11 +11,12 @@ let inputListener = function (event) {
     event.preventDefault();
     let inputValue = inputEL.value.trim();
     let dietInput = dietInputEL.value;
-    if (inputValue !== null){
-        // let recipeValue = inputValue;
-        recipeArray.push(inputValue);
+    // local storage
+    recipeArray.push(inputValue);
+    console.log(recipeArray);
+    localStorage.setItem("recipeValue",JSON.stringify(recipeArray));
         
-    }
+    
 
     if (!dietInput) {
         takeRecipe(inputValue);
@@ -161,3 +162,9 @@ function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
 }
+
+// function to retrive information from local storage
+function recipesFromLocalStorage() {
+    let storedRecipes = JSON.parse(localStorage.getItem("recipe"))
+}
+// function for print history at sidebar
