@@ -1,4 +1,3 @@
-
 body {
     align-items: center;
     height: 100vh;
@@ -33,6 +32,57 @@ label {
     max-height: 150px;
 }
 
-#dietInput:hover{
+#dietInput:hover {
     cursor: pointer;
+}
+
+#header {
+    position: relative;
+}
+
+.sidebar {
+    width: 0;
+    height: 100%;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: width 0.5s ease-in-out;
+}
+
+.sidebar.show {
+    width: 250px;
+}
+
+.sidebar a {
+    padding: 16px 16px;
+    text-decoration: none;
+    font-size: 22px;
+    color: white;
+    display: block;
+    transition: color 0.3s;
+}
+
+.sidebar a:hover {
+    color: orange;
+}
+
+#main {
+    margin-left: 250px;
+    transition: margin-left 0.5s;
+}
+
+.openbtn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+}
+
+.closebtn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
 }
