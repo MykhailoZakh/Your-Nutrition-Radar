@@ -4,12 +4,18 @@ let formEL = $("#form");
 let dietInputEL = document.querySelector("#dietInput");
 let ingredientsInputEL = document.querySelector("#ingredientsInput");
 let cardHolderEL = $("#object");
+let recipeArray = [];
 
 // function for event listener for recipe button
 let inputListener = function (event) {
     event.preventDefault();
     let inputValue = inputEL.value.trim();
     let dietInput = dietInputEL.value;
+    if (inputValue !== null){
+        // let recipeValue = inputValue;
+        recipeArray.push(inputValue);
+        
+    }
 
     if (!dietInput) {
         takeRecipe(inputValue);
