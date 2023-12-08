@@ -3,6 +3,7 @@ let inputEL = document.querySelector("#input");
 let formEL = $("#form");
 let dietInputEL = document.querySelector("#dietInput");
 let ingredientsInputEL = document.querySelector("#ingredientsInput");
+let cardHolderEL = $("#object");
 
 // function for event listener for recipe button
 let inputListener = function(event){
@@ -26,7 +27,9 @@ function takeRecipeWDiet(value, diet){
     .then(function(response){
         return response.json();
     }).then(function(data){
+        recipesCardPrint(data);
         console.log(data);
+        console.log(data.hits[0].recipe.calories)
     })
 };
 
@@ -74,6 +77,26 @@ document.addEventListener("mouseup", function (e) {
     }
 });
 
+// function for print card with object
+function recipesCardPrint(value){
+    for (let i = 0; i < 4; i++){
+        let cardBody = $("<section>");
+        cardBody.attr("class", "card")
+        let recipeName = $("<h3>");
+        recipeName.attr("class", "card-title");
+        let image = $("<img>");
+        image.attr("src", `${value.hits[i].recipe.image}`)
+        let dietType = $("<p>");
+        dietType.attr("class", "card-text");
+        recipeName.text(`${value.hits[i].recipe.label}`);
+        dietType.text(`${value.hits[i].recipe.dietLabels}`);
+        cardHolderEL.append(cardBody);
+        cardBody.append(recipeName);
+        cardBody.append(image);
+        cardBody.append(dietType);
+    };
+
+}
 // event listener for submit button
 formEL.on("click", "#recipe-button", inputListener);
 formEL.on("click", "#ingredients-button",ingredientsListener);
