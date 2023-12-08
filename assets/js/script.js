@@ -6,12 +6,12 @@ let ingredientsInputEL = document.querySelector("#ingredientsInput");
 let cardHolderEL = $("#object");
 
 // function for event listener for recipe button
-let inputListener = function(event){
+let inputListener = function (event) {
     event.preventDefault();
     let inputValue = inputEL.value.trim();
     let dietInput = dietInputEL.value;
-    
-    if(!dietInput){
+
+    if (!dietInput) {
         takeRecipe(inputValue);
         console.log(inputValue);
     } else {
@@ -20,45 +20,45 @@ let inputListener = function(event){
     }
 };
 // function for recipe api
-function takeRecipeWDiet(value, diet){
+function takeRecipeWDiet(value, diet) {
     let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL&diet=${diet}`;
 
     fetch(recipeURL)
-    .then(function(response){
-        return response.json();
-    }).then(function(data){
-        recipesCardPrint(data);
-        console.log(data);
-        console.log(data.hits[0].recipe.calories)
-    })
+        .then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            recipesCardPrint(data);
+            console.log(data);
+            console.log(data.hits[0].recipe.calories)
+        })
 };
 
-function takeRecipe(value){
+function takeRecipe(value) {
     let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL`;
 
     fetch(recipeURL)
-    .then(function(response){
-        return response.json();
-    }).then(function(data){
-        console.log(data);
-    })
+        .then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log(data);
+        })
 };
 // function for event listener for ingredients button
-let ingredientsListener = function(event) {
+let ingredientsListener = function (event) {
     event.preventDefault();
     let ingredientsValue = ingredientsInputEL.value.trim();
     console.log(ingredientsValue);
     takeIngerdients(ingredientsValue);
 };
 // function for ingerdients 
-function takeIngerdients(value){
+function takeIngerdients(value) {
     let ingerdientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
     fetch(ingerdientsURL)
-    .then(function(response){
-        return response.json();
-    }).then(function(data){
-        console.log(data);
-    })
+        .then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log(data);
+        })
 };
 function showDietOptions() {
     document.getElementById("dietOptions").style.display = "block";
@@ -100,8 +100,20 @@ function recipesCardPrint(value){
 }
 // event listener for submit button
 formEL.on("click", "#recipe-button", inputListener);
-formEL.on("click", "#ingredients-button",ingredientsListener);
+formEL.on("click", "#ingredients-button", ingredientsListener);
 // takeRecipe();
 
 
+/* What Kenny added
 
+/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+function openNav() {
+    document.getElementById("mySidebar").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+function closeNav() {
+    document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+}

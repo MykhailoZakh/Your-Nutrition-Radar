@@ -47,10 +47,26 @@
     </form>
     <section id="object" class="grid-x grid-margin-y grid-margin-x mx-2">
 
+
     </section>
+
+<!--What Kenny added-->
+<div id="header">
+  <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">Favorites</a>
+  </div>
+
+  <div id="main">
+    <button class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
+  </div>
+</div>
+
+<!--What Kenny added-->
   </div>
 
   
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
@@ -60,8 +76,18 @@
       integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
   <script src="./assets/js/script.js"></script>
 
-
-
+  <script>
+    function openNav() {
+      document.getElementById("mySidebar").classList.add("show");
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+  
+    function closeNav() {
+      document.getElementById("mySidebar").classList.remove("show");
+      document.getElementById("main").style.marginLeft = "0";
+    }
+  </script>
+  
 
 </body>
 
