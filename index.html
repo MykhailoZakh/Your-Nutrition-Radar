@@ -18,19 +18,19 @@
     </header>
 
     <form class="grid-x grid-margin-y grid-margin-x mx-2" id="form">
-      <div class="cell small-auto medium-6 bg-light my-2 px-2 rounded" style="height: 40%;">
+      <div class="cell small-auto medium-6 bg-light my-2 px-2 rounded">
         <label for="exampleInputPassword1" class="cell my-1 form-label">Find a Recipe</label>
         <input type="recipe" class="cell form-control" id="input">
         <button id="recipe-button" type="submit" class="cell my-1 btn btn-primary rounded">Submit</button>
       </div>
 
-      <div class="cell small-auto medium-6 bg-light my-2 px-2 rounded" style="height: 40%;">
+      <div class="cell small-auto medium-6 bg-light my-2 px-2 rounded">
           <label for="exampleInputPassword1" class="cell my-1 form-label">Search Ingredients</label>
           <input type="ingredients" class="cell form-control" id="ingredientsInput">
           <button id="ingredients-button" type="submit" class="cell my-1 btn btn-primary rounded">Submit</button>
       </div>
 
-      <div class="cell small-auto medium-auto bg-light my-2 px-2 rounded" style="height: 40%;">
+      <div class="cell small-auto medium-auto bg-light my-2 px-2 rounded">
           <label for="exampleInputPassword1" class="cell my-1 form-label">Diet Restrictions</label>
           <input readonly type="text" class="cell form-control" id="dietInput" onclick="showDietOptions()">
           <div id="dietOptions" style="max-height: 150px; overflow-y: auto; position: relative; display: none;">
@@ -45,9 +45,12 @@
           </div>
       </div>
     </form>
+    <section id="object" class="grid-x grid-margin-y grid-margin-x mx-2">
+
+
+    </section>
 
 <!--What Kenny added-->
-
 <div id="header">
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -60,14 +63,9 @@
 </div>
 
 <!--What Kenny added-->
-
   </div>
 
-  <section>
-      <p id="object">
-
-      </p>
-  </section>
+  
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
