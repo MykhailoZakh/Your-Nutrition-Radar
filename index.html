@@ -2,19 +2,22 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Your Nutrition Radar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <title>Your Nutrition Radar</title>
 </head>
 
 <body>
   <div class="grid-container-full">
 
     <header class="grid-x header align-spaced align-middle">
-      <img class="cell small-3 shrink header-icon" src="./assets/Images/Your-Nutrition-Radar-Logo.png" alt="Your Nutrition Radar Logo" class="header-icon">
+      <img class="cell small-3 shrink header-icon" src="./assets/Images/Your-Nutrition-Radar-Logo.png"
+        alt="Your Nutrition Radar Logo" class="header-icon">
     </header>
 
     <form class="grid-x grid-margin-y grid-margin-x mx-2" id="form">
@@ -25,62 +28,68 @@
       </div>
 
       <div class="cell small-auto medium-6 bg-light my-2 px-2 rounded">
-          <label for="exampleInputPassword1" class="cell my-1 form-label">Search Ingredients</label>
-          <input type="ingredients" class="cell form-control" id="ingredientsInput">
-          <button id="ingredients-button" type="submit" class="cell my-1 btn btn-primary rounded">Submit</button>
+        <label for="exampleInputPassword1" class="cell my-1 form-label">Search Ingredients</label>
+        <input type="ingredients" class="cell form-control" id="ingredientsInput">
+        <button id="ingredients-button" type="submit" class="cell my-1 btn btn-primary rounded">Submit</button>
       </div>
 
       <div class="cell small-auto medium-auto bg-light my-2 px-2 rounded">
-          <label for="exampleInputPassword1" class="cell my-1 form-label">Diet Restrictions</label>
-          <input readonly type="text" class="cell form-control" id="dietInput" onclick="showDietOptions()">
-          <div id="dietOptions" style="max-height: 150px; overflow-y: auto; position: relative; display: none;">
-              <ul>
-                  <li><a href="#" onclick="selectDiet('balanced')">Balanced</a></li>
-                  <li><a href="#" onclick="selectDiet('high-fiber')">High-Fiber</a></li>
-                  <li><a href="#" onclick="selectDiet('high-protein')">High-Protein</a></li>
-                  <li><a href="#" onclick="selectDiet('low-carb')">Low-Carb</a></li>
-                  <li><a href="#" onclick="selectDiet('low-fat')">Low-Fat</a></li>
-                  <li><a href="#" onclick="selectDiet('low-sodium')">Low-Sodium</a></li>
-              </ul>
-          </div>
+        <label for="exampleInputPassword1" class="cell my-1 form-label">Diet Restrictions</label>
+        <input readonly type="text" class="cell form-control" id="dietInput" onclick="showDietOptions()">
+        <div id="dietOptions" style="max-height: 150px; overflow-y: auto; position: relative; display: none;">
+          <ul>
+            <li><a href="#" onclick="selectDiet('balanced')">Balanced</a></li>
+            <li><a href="#" onclick="selectDiet('high-fiber')">High-Fiber</a></li>
+            <li><a href="#" onclick="selectDiet('high-protein')">High-Protein</a></li>
+            <li><a href="#" onclick="selectDiet('low-carb')">Low-Carb</a></li>
+            <li><a href="#" onclick="selectDiet('low-fat')">Low-Fat</a></li>
+            <li><a href="#" onclick="selectDiet('low-sodium')">Low-Sodium</a></li>
+          </ul>
+        </div>
       </div>
     </form>
-    <section id="object" class="grid-x grid-margin-y grid-margin-x mx-2">
 
+    <!--What Kenny added-->
 
+    <div id="header">
+      <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      </div>
+
+      <div id="main">
+        <button class="openbtn" onclick="openNav()">&#9776; <strong>Open Favorites</strong></button>
+      </div>
+    </div>
+
+    <!--What Kenny added-->
+
+    <section>
+      <p id="object" class="grid-x grid-margin-y grid-margin-x mx-2">
+      <section hidden class="card"></section>
+      <section hidden class="card"></section>
+      <section hidden class="card"></section>
+      <section hidden class="card"></section>
+      </p>
     </section>
 
-<!--What Kenny added-->
-
-<div id="header">
-  <div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  </div>
-
-  <div id="main">
-    <button class="openbtn" onclick="openNav()">&#9776; <strong>Open Favorites</strong></button>
-  </div>
-</div>
-
-<!--What Kenny added-->
   </div>
 
   <section>
-      <p id="object" "grid-x grid-margin-y grid-margin-x mx-2">
-        <section hidden class="card"></section>
-        <section hidden class="card"></section>
-        <section hidden class="card"></section>
-        <section hidden class="card"></section>
-      </p>
+    <p id="object" class="grid-x grid-margin-y grid-margin-x mx-2">
+    <section hidden class="card"></section>
+    <section hidden class="card"></section>
+    <section hidden class="card"></section>
+    <section hidden class="card"></section>
+    </p>
   </section>
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"></script>
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
   <script src="./assets/js/script.js"></script>
 
   <script>
@@ -88,13 +97,13 @@
       document.getElementById("mySidebar").classList.add("show");
       document.getElementById("main").style.marginLeft = "250px";
     }
-  
+
     function closeNav() {
       document.getElementById("mySidebar").classList.remove("show");
       document.getElementById("main").style.marginLeft = "0";
     }
   </script>
-  
+
 
 </body>
 

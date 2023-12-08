@@ -108,11 +108,12 @@ function recipesCardPrint(value){
 function ingredientsCardPrint(value){
     for (let i = 0; i < 4; i++){
         let cardBody = $("<section>");
-        cardBody.attr("class", "card")
+        cardBody.attr("class", "card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         let ingredientName = $("<h3>");
         ingredientName.attr("class", "card-title");
         let image = $("<img>");
         image.attr("src", `${value.hints[i].food.image}`)
+        image.attr("class", "header-icon border-dark rounded");
         let weight = $("<p>");
         let kCal = $("<p>")
         kCal.attr("class", "card-text");
