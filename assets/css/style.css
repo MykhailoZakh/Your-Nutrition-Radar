@@ -91,3 +91,18 @@ label {
     font-size: 20px;
     color: #88CA5E;
 }
+.empty-box{
+    width: 100%;
+    margin-top: 40px;
+    padding: 5px;
+    background-color: #b4c553;
+    color: white; 
+}
+.side-btn{
+    padding: 5px;
+    margin-top: 15px;
+    width: 100%;
+    background-color: #88CA5E;
+    color: white; 
+    display: block;
+}

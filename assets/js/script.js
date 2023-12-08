@@ -15,6 +15,7 @@ let inputListener = function (event) {
     recipeArray.push(inputValue);
     console.log(recipeArray);
     localStorage.setItem("recipeValue",JSON.stringify(recipeArray));
+    // recipesFromLocalStorage();
         
     
 
@@ -37,7 +38,7 @@ function takeRecipeWDiet(value, diet) {
         cardDelete();
             recipesCardPrint(data);
             console.log(data);
-            console.log(data.hits[0].recipe.calories)
+            console.log(data.hits[0].recipe.calories);
         })
 };
 
@@ -138,7 +139,6 @@ function ingredientsCardPrint(value){
 // function to delete card after click
 function cardDelete(){
     let cardArrayEL = document.querySelectorAll(".card");
-    console.log(cardArrayEL);
     for(let i = 0; i < cardArrayEL.length; i++){
         cardArrayEL[i].remove();
     }
@@ -163,8 +163,29 @@ function closeNav() {
     document.getElementById("main").style.marginLeft = "0";
 }
 
-// function to retrive information from local storage
+// function to retrive information from local storage and print it at sidebar
+
 function recipesFromLocalStorage() {
-    let storedRecipes = JSON.parse(localStorage.getItem("recipe"))
+    let storedRecipes = JSON.parse(localStorage.getItem("recipeValue"));
+    if(storedRecipes !== null){
+        recipeArray = storedRecipes;
+        for(let i = 0; i < storedRecipes.length; i++){
+            let sideBtnEL = $("<button>");
+            sideBtnEL.text(storedRecipes[i]);
+            sideBtnEL.attr("class", "side-btn");
+            $("#mySidebar").append(sideBtnEL);
+        }
+    }
 }
-// function for print history at sidebar
+recipesFromLocalStorage();
+
+// event listener for clear history button
+let clear = document.querySelector("#clear-btn");
+clear.addEventListener("click", function(){
+    let empty = [];
+    localStorage.setItem("recipeValue",JSON.stringify(empty));
+    let sideBtnArreyEL = document.querySelectorAll(".side-btn");
+    for(let i = 0; i < sideBtnArreyEL.length; i++){
+        sideBtnArreyEL[i].remove();
+    }
+})
