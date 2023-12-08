@@ -27,6 +27,7 @@ function takeRecipeWDiet(value, diet){
     .then(function(response){
         return response.json();
     }).then(function(data){
+        cardDelete();
         recipesCardPrint(data);
         console.log(data);
         console.log(data.hits[0].recipe.calories)
@@ -40,6 +41,9 @@ function takeRecipe(value){
     .then(function(response){
         return response.json();
     }).then(function(data){
+        cardDelete();
+        recipesCardPrint(data);
+        
         console.log(data);
     })
 };
@@ -48,15 +52,17 @@ let ingredientsListener = function(event) {
     event.preventDefault();
     let ingredientsValue = ingredientsInputEL.value.trim();
     console.log(ingredientsValue);
-    takeIngerdients(ingredientsValue);
+    takeIngredients(ingredientsValue);
 };
 // function for ingerdients 
-function takeIngerdients(value){
+function takeIngredients(value){
     let ingerdientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
     fetch(ingerdientsURL)
     .then(function(response){
         return response.json();
     }).then(function(data){
+        cardDelete();
+        ingredientsCardPrint(data);
         console.log(data);
     })
 };
@@ -95,7 +101,38 @@ function recipesCardPrint(value){
         cardBody.append(image);
         cardBody.append(dietType);
     };
+}
 
+// function for ingredients card printer
+function ingredientsCardPrint(value){
+    for (let i = 0; i < 4; i++){
+        let cardBody = $("<section>");
+        cardBody.attr("class", "card")
+        let ingredientName = $("<h3>");
+        ingredientName.attr("class", "card-title");
+        let image = $("<img>");
+        image.attr("src", `${value.hints[i].food.image}`)
+        let weight = $("<p>");
+        let kCal = $("<p>")
+        kCal.attr("class", "card-text");
+        kCal.text(`${value.hints[i].food.nutrients.ENERC_KCAL} KCal`);
+        weight.attr("class", "card-text");
+        ingredientName.text(`${value.hints[i].food.label}`);
+        weight.text(`0.${value.hints[i].measures[0].weight} pounds`);
+        cardHolderEL.append(cardBody);
+        cardBody.append(ingredientName);
+        cardBody.append(image);
+        cardBody.append(kCal);
+        cardBody.append(weight);
+    };
+}
+// function to delete card after click
+function cardDelete(){
+    let cardArrayEL = document.querySelectorAll(".card");
+    console.log(cardArrayEL);
+    for(let i = 0; i < cardArrayEL.length; i++){
+        cardArrayEL[i].remove();
+    }
 }
 // event listener for submit button
 formEL.on("click", "#recipe-button", inputListener);
