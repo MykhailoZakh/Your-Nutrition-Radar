@@ -6,6 +6,7 @@ let ingredientsInputEL = document.querySelector("#ingredientsInput");
 let cardHolderEL = $("#object");
 let recipeArray = [];
 
+
 // function for event listener for recipe button
 let inputListener = function (event) {
     event.preventDefault();
@@ -38,7 +39,7 @@ function takeRecipeWDiet(value, diet) {
         cardDelete();
             recipesCardPrint(data);
             console.log(data);
-            console.log(data.hits[0].recipe.calories);
+            console.log(data.hits[0].recipe.calories)
         })
 };
 
@@ -61,11 +62,10 @@ let ingredientsListener = function (event) {
     let ingredientsValue = ingredientsInputEL.value.trim();
     console.log(ingredientsValue);
     takeIngredients(ingredientsValue);
-};
-// function for ingerdients 
+};// function for ingredients 
 function takeIngredients(value) {
-    let ingerdientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
-    fetch(ingerdientsURL)
+    let ingredientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
+    fetch(ingredientsURL)
         .then(function (response) {
             return response.json();
         }).then(function (data) {
@@ -139,6 +139,7 @@ function ingredientsCardPrint(value){
 // function to delete card after click
 function cardDelete(){
     let cardArrayEL = document.querySelectorAll(".card");
+    console.log(cardArrayEL);
     for(let i = 0; i < cardArrayEL.length; i++){
         cardArrayEL[i].remove();
     }
