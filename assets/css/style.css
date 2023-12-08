@@ -32,6 +32,10 @@ label {
     max-height: 150px;
 }
 
+.card {
+    position: inherit;
+}
+
 #dietInput:hover {
     cursor: pointer;
 }
