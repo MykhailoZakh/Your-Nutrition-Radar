@@ -120,5 +120,34 @@ label {
 }
 
 .right-sidebar.show {
-    width: 20%;
+    width: 30%;
+}
+
+#save-btn {
+    color: white;
+    font-size: 30px;
+    width: 100%;
+}
+
+#recipe-name{
+    color: white;
+    font-size: 30px;
+}
+.sideP {
+    text-align: center;
+    padding: 5px;
+    margin-top: 15px;
+    width: 100%;
+    background-color: #ebb23e;
+    color: white; 
+    display: block;
+}
+
+.favorite-btn {
+    padding: 5px;
+    margin-top: 15px;
+    width: 100%;
+    background-color: #88CA5E;
+    color: white; 
+    display: block;
 }

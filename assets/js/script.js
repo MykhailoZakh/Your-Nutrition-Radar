@@ -5,7 +5,7 @@ let dietInputEL = document.querySelector("#dietInput");
 let ingredientsInputEL = document.querySelector("#ingredientsInput");
 let cardHolderEL = $("#object");
 let recipeArray = [];
-
+let favoriteArray = [];
 
 // function for event listener for recipe button
 let inputListener = function (event) {
@@ -52,7 +52,7 @@ function takeRecipe(value) {
         }).then(function (data) {
         cardDelete();
         recipesCardPrint(data);
-        
+        sideBarPrint(data);
             console.log(data);
         })
 };
@@ -193,7 +193,7 @@ function recipesFromLocalStorage() {
             let sideBtnEL = $("<button>");
             sideBtnEL.text(storedRecipes[i]);
             sideBtnEL.attr("class", "side-btn");
-            $("#mySidebar").append(sideBtnEL);
+            $("#history").append(sideBtnEL);
         }
     }
 }
@@ -204,8 +204,41 @@ let clear = document.querySelector("#clear-btn");
 clear.addEventListener("click", function(){
     let empty = [];
     localStorage.setItem("recipeValue",JSON.stringify(empty));
+    // localStorage.setItem("favoriteRecipe", JSON.stringify(empty));
     let sideBtnArreyEL = document.querySelectorAll(".side-btn");
     for(let i = 0; i < sideBtnArreyEL.length; i++){
         sideBtnArreyEL[i].remove();
     }
-})
+});
+
+// function for side bar printing
+let sideBarPrint = function(data) {
+    // event.preventDefault();
+    document.getElementById("recipe-name").textContent = `${data.hits[0].recipe.label}`;
+}
+
+// function for event listenner for favorite button
+let saveButtonEL = document.querySelector("#save-btn");
+let recipeNameEL = document.querySelector("#recipe-name");
+saveButtonEL.addEventListener("click", function(event){
+    event.preventDefault();
+    let recipeName = recipeNameEL.innerHTML.trim();
+    console.log(typeof recipeName);
+    favoriteArray.push(recipeName);
+    localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
+});
+
+// function to print favorite recipes from local storage
+function favoritesFromLocalStorage() {
+    let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
+    if(storedFavorites !== null){
+        favoriteArray = storedFavorites;
+        for(let i = 0; i < storedFavorites.length; i++){
+            let sideBtnEL = $("<button>");
+            sideBtnEL.text(storedFavorites[i]);
+            sideBtnEL.attr("class", "favorite-btn");
+            $("#favorites").append(sideBtnEL);
+        }
+    }
+}
+favoritesFromLocalStorage();
