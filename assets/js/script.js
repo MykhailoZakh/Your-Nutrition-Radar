@@ -30,7 +30,7 @@ let inputListener = function (event) {
 };
 
 // function for recipe api
-function takeRecipeWDiet(value, diet,) {
+function takeRecipeWDiet(value, diet) {
     let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL&diet=${diet}`;
 
     fetch(recipeURL)
@@ -45,7 +45,7 @@ function takeRecipeWDiet(value, diet,) {
         })
 };
 
-function takeRecipe(Value,) {
+function takeRecipe(value) {
     let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL`;
 
     fetch(recipeURL)
@@ -54,8 +54,8 @@ function takeRecipe(Value,) {
         }).then(function (data) {
         cardDelete();
         recipesCardPrint(data);
-        callback(data.hits[0]); // Pass the first recipe to the callback - Evan.
-        sideBarPrint(data);
+        updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
+        // sideBarPrint(data);
             console.log(data);
         });
 }
@@ -67,10 +67,14 @@ function updateRightSidebar(recipe) {
     const rightSidebar = document.getElementById("rightSidebar");
 
     rightSidebar.innerHTML = "";
-
+    // Should create element to display ❤ button - Mykhailo
+    const heartElement = document.createElement("button");
+    heartElement.setAttribute("id", "save-btn");
+    heartElement.textContent = `❤`;
     // Should create elements to display recipe details - Evan.
     const recipeNameElement = document.createElement("h3");
     recipeNameElement.textContent = recipe.recipe.label;
+    recipeNameElement.setAttribute("id", "recipe-name");
 
     const dietTypeElement = document.createElement("p");
     dietTypeElement.textContent = recipe.recipe.dietLabels;
@@ -82,8 +86,10 @@ function updateRightSidebar(recipe) {
 
     // Appends elements to the right sidebar - Evan.
     rightSidebar.appendChild(recipeNameElement);
+    rightSidebar.appendChild(heartElement);
     rightSidebar.appendChild(dietTypeElement);
     rightSidebar.appendChild(imageElement);
+    saveBtnFnc();
 }
 
 // function for event listener for ingredients button - Evan.
@@ -249,15 +255,17 @@ let sideBarPrint = function(data) {
 }
 
 // function for event listenner for favorite button
-let saveButtonEL = document.querySelector("#save-btn");
-let recipeNameEL = document.querySelector("#recipe-name");
-saveButtonEL.addEventListener("click", function(event){
-    event.preventDefault();
-    let recipeName = recipeNameEL.innerHTML.trim();
-    console.log(typeof recipeName);
-    favoriteArray.push(recipeName);
-    localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
+function saveBtnFnc(){
+    let saveButtonEL = document.querySelector("#save-btn");
+    let recipeNameEL = document.querySelector("#recipe-name");
+    saveButtonEL.addEventListener("click", function(event){
+        event.preventDefault();
+        let recipeName = recipeNameEL.innerText.trim();
+        console.log(recipeName);
+        favoriteArray.push(recipeName);
+        localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
 });
+}
 
 // function to print favorite recipes from local storage
 function favoritesFromLocalStorage() {

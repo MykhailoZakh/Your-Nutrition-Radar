@@ -124,12 +124,14 @@ label {
 }
 
 #save-btn {
+    display: inline;
     color: white;
     font-size: 30px;
-    width: 100%;
+    margin-left: 10px;
 }
 
 #recipe-name{
+    display: inline;
     color: white;
     font-size: 30px;
 }
