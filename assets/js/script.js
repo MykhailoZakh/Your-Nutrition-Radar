@@ -56,7 +56,7 @@ function takeRecipe(value) {
         recipesCardPrint(data);
         updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
         // sideBarPrint(data);
-        updateRightSidebar(data.hits[0]);
+        // updateRightSidebar(data.hits[0]);
         // (callback.hits[0]); // Pass the first recipe to the callback - Evan.
         
             console.log(data);
@@ -75,7 +75,7 @@ function updateRightSidebar(data) {
     heartElement.textContent = `❤`;
     // Should create elements to display recipe details - Evan.
     const recipeNameElement = document.createElement("h3");
-    recipeNameElement.textContent = recipe.recipe.label;
+    recipeNameElement.textContent = data.recipe.label
     recipeNameElement.setAttribute("id", "recipe-name");
 
     const dietTypeElement = document.createElement("p");
@@ -83,13 +83,13 @@ function updateRightSidebar(data) {
 
     if (data.recipe) {
         // If it's a recipe, recipe properties should be used - Evan.
-        nameElement.textContent = data.recipe.label;
+        recipeNameElement.textContent = data.recipe.label;
         dietTypeElement.textContent = data.recipe.dietLabels;
         imageElement.src = data.recipe.image;
         imageElement.alt = data.recipe.label;
     } else if (data.food) {
         // If it's an ingredient, food properties should be used - Evan.
-        nameElement.textContent = data.food.label;
+        recipeNameElement.textContent = data.food.label;
         // dietTypeElement.textContent = ''; 
         imageElement.src = data.food.image;
         imageElement.alt = data.food.label;
@@ -134,9 +134,9 @@ function takeIngredients(value, updateRightSidebar) {
         }).then(function (data) {
         cardDelete();
         ingredientsCardPrint(data);
-        if (updateRightSidebar) {
-            updateRightSidebar(data.hints[0]); 
-        }
+        // if (updateRightSidebar) {
+        //     updateRightSidebar(data.hints[0]); 
+        // }
             console.log(data);
         })
 }
