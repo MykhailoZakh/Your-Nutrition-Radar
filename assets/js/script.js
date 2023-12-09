@@ -30,7 +30,7 @@ let inputListener = function (event) {
 };
 
 // function for recipe api
-function takeRecipeWDiet(value, diet) {
+function takeRecipeWDiet(value, diet, updateRightSidebar) {
     let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL&diet=${diet}`;
 
     fetch(recipeURL)
@@ -56,14 +56,16 @@ function takeRecipe(value) {
         recipesCardPrint(data);
         updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
         // sideBarPrint(data);
+        // updateRightSidebar(data.hits[0]);
+        // (callback.hits[0]); // Pass the first recipe to the callback - Evan.
+        
             console.log(data);
         });
 }
 
-// New function to update the right sidebar content - Evan.
-function updateRightSidebar(recipe) {
-    // Implements the logic to display the first recipe on the right side bar here - Evan.
-    console.log("Recipe for right sidebar:", recipe);
+function updateRightSidebar(data) {
+    // Implements the logic to display the first recipe or ingredient on the right side bar here - Evan.
+    console.log("Data for right sidebar:", data);
     const rightSidebar = document.getElementById("rightSidebar");
 
     rightSidebar.innerHTML = "";
@@ -73,16 +75,32 @@ function updateRightSidebar(recipe) {
     heartElement.textContent = `❤`;
     // Should create elements to display recipe details - Evan.
     const recipeNameElement = document.createElement("h3");
-    recipeNameElement.textContent = recipe.recipe.label;
+    recipeNameElement.textContent = data.recipe.label
     recipeNameElement.setAttribute("id", "recipe-name");
 
     const dietTypeElement = document.createElement("p");
-    dietTypeElement.textContent = recipe.recipe.dietLabels;
-
-    // Should create an image element - Evan.
     const imageElement = document.createElement("img");
-    imageElement.src = recipe.recipe.image;
-    imageElement.alt = recipe.recipe.label; // alternative text - Evan.
+
+    if (data.recipe) {
+        // If it's a recipe, recipe properties should be used - Evan.
+        recipeNameElement.textContent = data.recipe.label;
+        dietTypeElement.textContent = data.recipe.dietLabels;
+        imageElement.src = data.recipe.image;
+        imageElement.alt = data.recipe.label;
+    } else if (data.food) {
+        // If it's an ingredient, food properties should be used - Evan.
+        recipeNameElement.textContent = data.food.label;
+        // dietTypeElement.textContent = ''; 
+        imageElement.src = data.food.image;
+        imageElement.alt = data.food.label;
+
+       // Check if diet label exists for ingredients
+       if (data.food.dietLabels && data.food.dietLabels.length > 0) {
+        dietTypeElement.textContent = data.food.dietLabels.join(', ');
+    } else {
+        dietTypeElement.textContent = 'No diet label available';
+    }
+}
 
     // Appends elements to the right sidebar - Evan.
     rightSidebar.appendChild(recipeNameElement);
@@ -103,17 +121,22 @@ let ingredientsListener = function (event) {
         // If both conditions are met, the right sidebar should open - Evan.
         openRightNav();
     }
-    takeIngredients(ingredientsValue);
-
-};// function for ingredients 
-function takeIngredients(value) {
+    takeIngredients(ingredientsValue, updateRightSidebar);
+    
+};
+// function for ingredients 
+function takeIngredients(value, updateRightSidebar) {
     let ingredientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
+    
     fetch(ingredientsURL)
         .then(function (response) {
             return response.json();
         }).then(function (data) {
         cardDelete();
         ingredientsCardPrint(data);
+        // if (updateRightSidebar) {
+        //     updateRightSidebar(data.hints[0]); 
+        // }
             console.log(data);
         })
 }
