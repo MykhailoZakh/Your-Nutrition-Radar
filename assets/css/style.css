@@ -106,3 +106,19 @@ label {
     color: white; 
     display: block;
 }
+
+/* Right sidebar dimensions - Evan. */
+.right-sidebar {
+    width: 0;
+    height: 100%;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    right: 0;
+    overflow-x: hidden;
+    transition: width 0.5s ease-in-out;
+}
+
+.right-sidebar.show {
+    width: 20%;
+}
