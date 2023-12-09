@@ -5,7 +5,7 @@ let dietInputEL = document.querySelector("#dietInput");
 let ingredientsInputEL = document.querySelector("#ingredientsInput");
 let cardHolderEL = $("#object");
 let recipeArray = [];
-
+let favoriteArray = [];
 
 // function for event listener for recipe button
 let inputListener = function (event) {
@@ -54,6 +54,8 @@ function takeRecipe(value) {
         }).then(function (data) {
         cardDelete();
         recipesCardPrint(data);
+        updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
+        // sideBarPrint(data);
         updateRightSidebar(data.hits[0]);
         // (callback.hits[0]); // Pass the first recipe to the callback - Evan.
         
@@ -67,9 +69,15 @@ function updateRightSidebar(data) {
     const rightSidebar = document.getElementById("rightSidebar");
 
     rightSidebar.innerHTML = "";
+    // Should create element to display ❤ button - Mykhailo
+    const heartElement = document.createElement("button");
+    heartElement.setAttribute("id", "save-btn");
+    heartElement.textContent = `❤`;
+    // Should create elements to display recipe details - Evan.
+    const recipeNameElement = document.createElement("h3");
+    recipeNameElement.textContent = recipe.recipe.label;
+    recipeNameElement.setAttribute("id", "recipe-name");
 
-    // Should create elements to display details - Evan.
-    const nameElement = document.createElement("h3");
     const dietTypeElement = document.createElement("p");
     const imageElement = document.createElement("img");
 
@@ -95,9 +103,11 @@ function updateRightSidebar(data) {
 }
 
     // Appends elements to the right sidebar - Evan.
-    rightSidebar.appendChild(nameElement);
+    rightSidebar.appendChild(recipeNameElement);
+    rightSidebar.appendChild(heartElement);
     rightSidebar.appendChild(dietTypeElement);
     rightSidebar.appendChild(imageElement);
+    saveBtnFnc();
 }
 
 // function for event listener for ingredients button - Evan.
@@ -243,7 +253,7 @@ function recipesFromLocalStorage() {
             let sideBtnEL = $("<button>");
             sideBtnEL.text(storedRecipes[i]);
             sideBtnEL.attr("class", "side-btn");
-            $("#mySidebar").append(sideBtnEL);
+            $("#history").append(sideBtnEL);
         }
     }
 }
@@ -254,8 +264,43 @@ let clear = document.querySelector("#clear-btn");
 clear.addEventListener("click", function(){
     let empty = [];
     localStorage.setItem("recipeValue",JSON.stringify(empty));
+    // localStorage.setItem("favoriteRecipe", JSON.stringify(empty));
     let sideBtnArreyEL = document.querySelectorAll(".side-btn");
     for(let i = 0; i < sideBtnArreyEL.length; i++){
         sideBtnArreyEL[i].remove();
     }
-})
+});
+
+// function for side bar printing
+let sideBarPrint = function(data) {
+    // event.preventDefault();
+    document.getElementById("recipe-name").textContent = `${data.hits[0].recipe.label}`;
+}
+
+// function for event listenner for favorite button
+function saveBtnFnc(){
+    let saveButtonEL = document.querySelector("#save-btn");
+    let recipeNameEL = document.querySelector("#recipe-name");
+    saveButtonEL.addEventListener("click", function(event){
+        event.preventDefault();
+        let recipeName = recipeNameEL.innerText.trim();
+        console.log(recipeName);
+        favoriteArray.push(recipeName);
+        localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
+});
+}
+
+// function to print favorite recipes from local storage
+function favoritesFromLocalStorage() {
+    let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
+    if(storedFavorites !== null){
+        favoriteArray = storedFavorites;
+        for(let i = 0; i < storedFavorites.length; i++){
+            let sideBtnEL = $("<button>");
+            sideBtnEL.text(storedFavorites[i]);
+            sideBtnEL.attr("class", "favorite-btn");
+            $("#favorites").append(sideBtnEL);
+        }
+    }
+}
+favoritesFromLocalStorage();
