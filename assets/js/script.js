@@ -12,13 +12,12 @@ let inputListener = function (event) {
     event.preventDefault();
     let inputValue = inputEL.value.trim();
     let dietInput = dietInputEL.value;
+
     // local storage
     recipeArray.push(inputValue);
     console.log(recipeArray);
     localStorage.setItem("recipeValue",JSON.stringify(recipeArray));
     // recipesFromLocalStorage();
-        
-    
 
     if (!dietInput) {
         takeRecipe(inputValue);
@@ -27,6 +26,7 @@ let inputListener = function (event) {
         takeRecipeWDiet(inputValue, dietInput);
         console.log(inputValue, dietInput);
     }
+    openRightNav(); // When user inputs recipe and selects diet, right nav should appear - Evan.
 };
 // function for recipe api
 function takeRecipeWDiet(value, diet) {
@@ -56,11 +56,17 @@ function takeRecipe(value) {
             console.log(data);
         })
 };
-// function for event listener for ingredients button
+// function for event listener for ingredients button - Evan.
 let ingredientsListener = function (event) {
     event.preventDefault();
     let ingredientsValue = ingredientsInputEL.value.trim();
+    let dietInput = dietInputEL.value;
     console.log(ingredientsValue);
+
+    if (ingredientsValue && dietInput) {
+        // If both conditions are met, the right sidebar should open - Evan.
+        openRightNav();
+    }
     takeIngredients(ingredientsValue);
 };// function for ingredients 
 function takeIngredients(value) {
@@ -73,7 +79,10 @@ function takeIngredients(value) {
         ingredientsCardPrint(data);
             console.log(data);
         })
-};
+}
+// Event listener, when ingredients button is submitted, right sidebar nav is event is executed - Evan. 
+formEL.on("click", "#ingredients-button", ingredientsListener);
+
 function showDietOptions() {
     document.getElementById("dietOptions").style.display = "block";
 };
@@ -164,8 +173,18 @@ function closeNav() {
     document.getElementById("main").style.marginLeft = "0";
 }
 
-// function to retrive information from local storage and print it at sidebar
+// New right sidebar functions - Evan.
+function openRightNav() {
+    document.getElementById("rightSidebar").classList.add("show");
+    document.body.style.overflow = "hidden"; // Prevents scrolling when the right sidebar is open - Evan.
+}
 
+function closeRightNav() {
+    document.getElementById("rightSidebar").classList.remove("show");
+    document.body.style.overflow = ""; // Enables scrolling when the right sidebar is closed - Evan.
+}
+
+// function to retrieve information from local storage and print it at sidebar
 function recipesFromLocalStorage() {
     let storedRecipes = JSON.parse(localStorage.getItem("recipeValue"));
     if(storedRecipes !== null){
