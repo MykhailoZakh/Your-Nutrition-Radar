@@ -20,16 +20,17 @@ let inputListener = function (event) {
     // recipesFromLocalStorage();
 
     if (!dietInput) {
-        takeRecipe(inputValue);
-        console.log(inputValue);
+        takeRecipe(inputValue, updateRightSidebar); // Should pass the updateRightSidebar function as a callback - Evan.
+        console.log(inputValue, updateRightSidebar);
     } else {
-        takeRecipeWDiet(inputValue, dietInput);
-        console.log(inputValue, dietInput);
+        takeRecipeWDiet(inputValue, dietInput, updateRightSidebar); // Should pass the updateRightSidebar function as a callback - Evan.
+        console.log(inputValue, dietInput, updateRightSidebar);
     }
     openRightNav(); // When user inputs recipe and selects diet, right nav should appear - Evan.
 };
+
 // function for recipe api
-function takeRecipeWDiet(value, diet) {
+function takeRecipeWDiet(value, diet,) {
     let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL&diet=${diet}`;
 
     fetch(recipeURL)
@@ -38,12 +39,13 @@ function takeRecipeWDiet(value, diet) {
         }).then(function (data) {
         cardDelete();
             recipesCardPrint(data);
+            updateRightSidebar(data.hits[0]); // Should pass the first recipe to the callback - Evan.
             console.log(data);
-            console.log(data.hits[0].recipe.calories)
+            console.log(data.hits[0].recipe.calories) 
         })
 };
 
-function takeRecipe(value) {
+function takeRecipe(Value,) {
     let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL`;
 
     fetch(recipeURL)
@@ -52,10 +54,38 @@ function takeRecipe(value) {
         }).then(function (data) {
         cardDelete();
         recipesCardPrint(data);
+        callback(data.hits[0]); // Pass the first recipe to the callback - Evan.
         
             console.log(data);
-        })
-};
+        });
+}
+
+// New function to update the right sidebar content - Evan.
+function updateRightSidebar(recipe) {
+    // Implements the logic to display the first recipe on the right side bar here - Evan.
+    console.log("Recipe for right sidebar:", recipe);
+    const rightSidebar = document.getElementById("rightSidebar");
+
+    rightSidebar.innerHTML = "";
+
+    // Should create elements to display recipe details - Evan.
+    const recipeNameElement = document.createElement("h3");
+    recipeNameElement.textContent = recipe.recipe.label;
+
+    const dietTypeElement = document.createElement("p");
+    dietTypeElement.textContent = recipe.recipe.dietLabels;
+
+    // Should create an image element - Evan.
+    const imageElement = document.createElement("img");
+    imageElement.src = recipe.recipe.image;
+    imageElement.alt = recipe.recipe.label; // alternative text - Evan.
+
+    // Appends elements to the right sidebar - Evan.
+    rightSidebar.appendChild(recipeNameElement);
+    rightSidebar.appendChild(dietTypeElement);
+    rightSidebar.appendChild(imageElement);
+}
+
 // function for event listener for ingredients button - Evan.
 let ingredientsListener = function (event) {
     event.preventDefault();
@@ -68,6 +98,7 @@ let ingredientsListener = function (event) {
         openRightNav();
     }
     takeIngredients(ingredientsValue);
+
 };// function for ingredients 
 function takeIngredients(value) {
     let ingredientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
