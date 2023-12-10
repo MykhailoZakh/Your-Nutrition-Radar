@@ -299,10 +299,13 @@ function favoritesFromLocalStorage() {
             let sideBtnEL = $("<button>");
             let xBtnEl = $("<button>");
             xBtnEl.attr("class", "favorite-delite-btn");
-            
+            xBtnEl.attr("role", "img");
+            xBtnEl.attr("aria-label", "Cancel");
             sideBtnEL.text(storedFavorites[i]);
             sideBtnEL.attr("class", "favorite-btn");
+            sideBtnEL.append(xBtnEl);
             $("#favorites").append(sideBtnEL);
+            
         }
     }
 }
