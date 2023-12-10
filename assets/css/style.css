@@ -145,7 +145,7 @@ label {
     display: block;
 }
 
-.favorite-btn {
+.favorite-btn, .favorite-first-btn {
     padding: 5px;
     margin-top: 15px;
     width: 100%;
@@ -154,4 +154,4 @@ label {
     display: block;
 }
 
-.favorite-delite-btn::before { content: "\2716"; }
+.favorite-delite-btn::after { content: "\2716"; }
