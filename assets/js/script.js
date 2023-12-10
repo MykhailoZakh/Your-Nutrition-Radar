@@ -331,7 +331,7 @@ function favoritesFromLocalStorage() {
         for (let i = 1; i < storedFavorites.length; i++) {
             let sideBtnEL = $("<button>");
             let xBtnEl = $("<button>");
-            xBtnEl.attr("class", "favorite-delite-btn");
+            xBtnEl.attr("class", "favorite-delete-btn");
             sideBtnEL.text(storedFavorites[i]);
             sideBtnEL.attr("class", "favorite-btn");
             sideBtnEL.append(xBtnEl);
@@ -343,7 +343,7 @@ function favoritesFromLocalStorage() {
 favoritesFromLocalStorage();
 
 // event listener for X button to remove item from favorites
-$(".favorite-btn").on("click", ".favorite-delite-btn", function(event){
+$(".favorite-btn").on("click", ".favorite-delete-btn", function(event){
     console.log(`${event.target.parentElement.innerText}`);
     let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
     if (storedFavorites !== null) {
