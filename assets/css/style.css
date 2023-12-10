@@ -91,6 +91,7 @@ label {
     font-size: 20px;
     color: #88CA5E;
 }
+
 .empty-box{
     width: 100%;
     margin-top: 40px;
@@ -154,4 +155,12 @@ label {
     display: block;
 }
 
-.favorite-delite-btn::after { content: "\2716"; }
+.favorite-delete-btn::after { content: "\2716"; }
+
+.favorite-delete-btn {
+    position: absolute;
+    right: 10px;
+    font-size: 20px;
+    color: white;
+
+}
