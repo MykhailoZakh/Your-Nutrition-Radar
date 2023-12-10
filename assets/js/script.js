@@ -52,17 +52,21 @@ function takeRecipe(value) {
         .then(function (response) {
             return response.json();
         }).then(function (data) {
-        cardDelete();
-        recipesCardPrint(data);
-        updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
-        
+            cardDelete();
+            recipesCardPrint(data);
+            updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
+
             console.log(data);
         });
 }
 
 
+
+
+
 function updateRightSidebar(data) {
     console.log("Data for right sidebar:", data);
+
     const rightSidebar = document.getElementById("rightSidebar");
 
     rightSidebar.innerHTML = "";
@@ -82,29 +86,94 @@ function updateRightSidebar(data) {
     imageElement.src = data.recipe.image;
     imageElement.alt = data.recipe.label; // alternative text - Evan.
 
-    // Create card for nutrition facts - Kenny
-    const nutritionCard = document.createElement("div");
-    nutritionCard.className = "card text-center mb-3";
-
-    const nutritionCardBody = document.createElement("div");
-    nutritionCardBody.className = "card-body";
-
-    // Add nutrition facts to the card
-    for (const nutrient of Object.values(data.recipe.totalNutrients)) {
-        const nutrientElement = document.createElement("p");
-        nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
-        nutritionCardBody.appendChild(nutrientElement);
-    }
-
     // Append elements to the right sidebar
     rightSidebar.appendChild(recipeNameElement);
     rightSidebar.appendChild(heartElement);
     rightSidebar.appendChild(imageElement);
-    rightSidebar.appendChild(nutritionCard);
-    nutritionCard.appendChild(nutritionCardBody);
+
+    // Create card for ingredients - New section - Kenny
+    if (data.recipe.ingredientLines && data.recipe.ingredientLines.length > 0) {
+        const ingredientsCard = document.createElement("div");
+        ingredientsCard.className = "card text-center mb-3";
+
+        const ingredientsCardBody = document.createElement("div");
+        ingredientsCardBody.className = "card-body";
+
+        // Add ingredients to the card - Kenny
+        const ingredientsTitle = document.createElement("h4");
+        ingredientsTitle.textContent = "Ingredients";
+        ingredientsCardBody.appendChild(ingredientsTitle);
+
+        for (const ingredient of data.recipe.ingredientLines) {
+            const ingredientElement = document.createElement("p");
+            ingredientElement.textContent = ingredient;
+            ingredientsCardBody.appendChild(ingredientElement);
+        }
+
+        // Append ingredients card - Kenny
+        ingredientsCard.appendChild(ingredientsCardBody);
+        rightSidebar.appendChild(ingredientsCard);
+    } else {
+        const noIngredientsCard = document.createElement("div");
+        noIngredientsCard.className = "card text-center mb-3";
+
+        const noIngredientsCardBody = document.createElement("div");
+        noIngredientsCardBody.className = "card-body";
+
+        noIngredientsCardBody.innerHTML = "<p>No ingredients available.</p>";
+
+        noIngredientsCard.appendChild(noIngredientsCardBody);
+        rightSidebar.appendChild(noIngredientsCard);
+    }
+
+    // New section - Create card for cooking instructions - Kenny
+    if (data.recipe.cookingInstructions) {
+        const instructionsCard = document.createElement("div");
+        instructionsCard.className = "card text-center mb-3";
+
+        const instructionsCardBody = document.createElement("div");
+        instructionsCardBody.className = "card-body";
+
+        // Add cooking instructions to the card - Kenny
+        const instructionsTitle = document.createElement("h4");
+        instructionsTitle.textContent = "Cooking Instructions";
+        instructionsCardBody.appendChild(instructionsTitle);
+
+        const instructionsElement = document.createElement("p");
+        instructionsElement.textContent = data.recipe.cookingInstructions;
+        instructionsCardBody.appendChild(instructionsElement);
+
+        // Append instructions card - Kenny
+        instructionsCard.appendChild(instructionsCardBody);
+        rightSidebar.appendChild(instructionsCard);
+    }
+
+    // Create card for nutrition facts - Kenny
+    if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length > 0) {
+        const nutritionCard = document.createElement("div");
+        nutritionCard.className = "card text-center mb-3";
+
+        const nutritionCardBody = document.createElement("div");
+        nutritionCardBody.className = "card-body";
+
+        // Add nutrition facts to the card - Kenny
+        for (const nutrient of Object.values(data.recipe.totalNutrients)) {
+            const nutrientElement = document.createElement("p");
+            nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
+            nutritionCardBody.appendChild(nutrientElement);
+        }
+
+        // Append nutrition card - Kenny
+        nutritionCard.appendChild(nutritionCardBody);
+        rightSidebar.appendChild(nutritionCard);
+    }
 
     saveBtnFnc();
 }
+
+
+
+
 
 
 formEL.on("click", "#ingredients-button", ingredientsListener);
@@ -336,14 +405,14 @@ function favoritesFromLocalStorage() {
             sideBtnEL.attr("class", "favorite-btn");
             sideBtnEL.append(xBtnEl);
             $("#favorites").append(sideBtnEL);
-            
+
         }
     }
 }
 favoritesFromLocalStorage();
 
 // event listener for X button to remove item from favorites
-$(".favorite-btn").on("click", ".favorite-delete-btn", function(event){
+$(".favorite-btn").on("click", ".favorite-delete-btn", function (event) {
     console.log(`${event.target.parentElement.innerText}`);
     let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
     if (storedFavorites !== null) {
