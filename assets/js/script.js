@@ -60,10 +60,6 @@ function takeRecipe(value) {
         });
 }
 
-
-
-
-
 function updateRightSidebar(data) {
     console.log("Data for right sidebar:", data);
 
@@ -233,20 +229,41 @@ function updateRightSidebarForIngredients(data) {
         ingredientNameElement.textContent = data.food.label;
         imageElement.src = data.food.image;
         imageElement.alt = data.food.label;
+ 
+         // Nutrition facts card - Kenny
+         const nutritionCard = document.createElement("div");
+         nutritionCard.className = "card text-center mb-3";
+ 
+         const nutritionCardBody = document.createElement("div");
+         nutritionCardBody.className = "card-body";
 
-        // Checks if diet label exists for ingredients - Evan.
-        if (data.food.dietLabels && data.food.dietLabels.length > 0) {
-            dietTypeElement.textContent = data.food.dietLabels.join(', ');
-        } else {
-            dietTypeElement.textContent = 'No diet label available';
+        // Should display and append nutrients card.
+        for (const nutrient of Object.values(data.food.nutrients)) {
+            const nutrientElement = document.createElement("p");
+
+        // Checks if quantity is defined before using toFixed - Evan.
+        const quantityText = nutrient.quantity !== undefined ? nutrient.quantity.toFixed(2) : 'N/A';
+        nutrientElement.textContent = `${nutrient.label}: ${quantityText} ${nutrient.unit}`;
+        nutritionCardBody.appendChild(nutrientElement);
         }
-    }
 
+             // Favorites button - Mykhailo
+         const heartElement = document.createElement("button");
+         heartElement.setAttribute("id", "save-btn");
+         heartElement.textContent = `❤`;
+        
     // Appends elements to the right sidebar for ingredients - Evan.
     rightSidebar.appendChild(ingredientNameElement);
+    rightSidebar.appendChild(heartElement);
     rightSidebar.appendChild(dietTypeElement);
     rightSidebar.appendChild(imageElement);
+    rightSidebar.appendChild(nutritionCard);
+    nutritionCard.appendChild(nutritionCardBody);
+
+    saveBtnFnc();
 }
+}
+
 
 function showDietOptions() {
     document.getElementById("dietOptions").style.display = "block";
@@ -381,11 +398,12 @@ let sideBarPrint = function (data) {
     // event.preventDefault();
     document.getElementById("recipe-name").textContent = `${data.hits[0].recipe.label}`;
 }
-
-// function for event listenner for favorite button
 function saveBtnFnc() {
     let saveButtonEL = document.querySelector("#save-btn");
     let recipeNameEL = document.querySelector("#recipe-name");
+   
+    
+    if (recipeNameEL) { //Checks if element is not null, I was getting a null console error - Evan.
     saveButtonEL.addEventListener("click", function (event) {
         event.preventDefault();
         let recipeName = recipeNameEL.innerText.trim();
@@ -393,6 +411,7 @@ function saveBtnFnc() {
         favoriteArray.push(recipeName);
         localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
     });
+}
 }
 
 // function to print favorite recipes from local storage
