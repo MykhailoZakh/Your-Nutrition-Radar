@@ -70,7 +70,10 @@ function updateRightSidebar(data) {
     const rightSidebar = document.getElementById("rightSidebar");
 
     rightSidebar.innerHTML = "";
-
+{/* <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> */}
+    //  Should create element to display X button - Mykhailo
+    const exElement = document.createAttribute("a")
+    exElement.setAttribute("href")
     // Should create element to display ❤ button - Mykhailo
     const heartElement = document.createElement("button");
     heartElement.setAttribute("id", "save-btn");

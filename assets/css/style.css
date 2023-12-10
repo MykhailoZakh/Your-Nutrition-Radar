@@ -152,9 +152,6 @@ label {
     width: 100%;
     background-color: #88CA5E;
     color: white; 
-    display: flex;
-    text-align: center;
-    justify-content: space-between;
 }
 
 .favorite-delete-btn::after { content: "\2716"; }
