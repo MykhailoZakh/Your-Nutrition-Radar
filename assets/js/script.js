@@ -297,6 +297,9 @@ function favoritesFromLocalStorage() {
         favoriteArray = storedFavorites;
         for(let i = 0; i < storedFavorites.length; i++){
             let sideBtnEL = $("<button>");
+            let xBtnEl = $("<button>");
+            xBtnEl.attr("class", "favorite-delite-btn");
+            
             sideBtnEL.text(storedFavorites[i]);
             sideBtnEL.attr("class", "favorite-btn");
             $("#favorites").append(sideBtnEL);

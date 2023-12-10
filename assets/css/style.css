@@ -153,3 +153,5 @@ label {
     color: white; 
     display: block;
 }
+
+.favorite-delite-btn::before { content: "\2716"; }
