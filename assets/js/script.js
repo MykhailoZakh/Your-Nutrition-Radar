@@ -16,7 +16,7 @@ let inputListener = function (event) {
     // local storage
     recipeArray.push(inputValue);
     console.log(recipeArray);
-    localStorage.setItem("recipeValue",JSON.stringify(recipeArray));
+    localStorage.setItem("recipeValue", JSON.stringify(recipeArray));
     // recipesFromLocalStorage();
 
     if (!dietInput) {
@@ -37,11 +37,11 @@ function takeRecipeWDiet(value, diet, updateRightSidebar) {
         .then(function (response) {
             return response.json();
         }).then(function (data) {
-        cardDelete();
+            cardDelete();
             recipesCardPrint(data);
             updateRightSidebar(data.hits[0]); // Should pass the first recipe to the callback - Evan.
             console.log(data);
-            console.log(data.hits[0].recipe.calories) 
+            console.log(data.hits[0].recipe.calories)
         })
 };
 
@@ -52,63 +52,63 @@ function takeRecipe(value) {
         .then(function (response) {
             return response.json();
         }).then(function (data) {
-        cardDelete();
-        recipesCardPrint(data);
-        updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
-        // sideBarPrint(data);
-        // updateRightSidebar(data.hits[0]);
-        // (callback.hits[0]); // Pass the first recipe to the callback - Evan.
-        
+            cardDelete();
+            recipesCardPrint(data);
+            updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
+            // sideBarPrint(data);
+            // updateRightSidebar(data.hits[0]);
+            // (callback.hits[0]); // Pass the first recipe to the callback - Evan.
+
             console.log(data);
         });
 }
 
+
 function updateRightSidebar(data) {
-    // Implements the logic to display the first recipe or ingredient on the right side bar here - Evan.
     console.log("Data for right sidebar:", data);
     const rightSidebar = document.getElementById("rightSidebar");
 
     rightSidebar.innerHTML = "";
+
     // Should create element to display ❤ button - Mykhailo
     const heartElement = document.createElement("button");
     heartElement.setAttribute("id", "save-btn");
     heartElement.textContent = `❤`;
+
     // Should create elements to display recipe details - Evan.
     const recipeNameElement = document.createElement("h3");
-    recipeNameElement.textContent = data.recipe.label
+    recipeNameElement.textContent = data.recipe.label;
     recipeNameElement.setAttribute("id", "recipe-name");
 
-    const dietTypeElement = document.createElement("p");
+    // Should create an image element - Evan.
     const imageElement = document.createElement("img");
+    imageElement.src = data.recipe.image;
+    imageElement.alt = data.recipe.label; // alternative text - Evan.
 
-    if (data.recipe) {
-        // If it's a recipe, recipe properties should be used - Evan.
-        recipeNameElement.textContent = data.recipe.label;
-        dietTypeElement.textContent = data.recipe.dietLabels;
-        imageElement.src = data.recipe.image;
-        imageElement.alt = data.recipe.label;
-    } else if (data.food) {
-        // If it's an ingredient, food properties should be used - Evan.
-        recipeNameElement.textContent = data.food.label;
-        // dietTypeElement.textContent = ''; 
-        imageElement.src = data.food.image;
-        imageElement.alt = data.food.label;
+    // Create card for nutrition facts - Kenny
+    const nutritionCard = document.createElement("div");
+    nutritionCard.className = "card text-center mb-3";
 
-       // Check if diet label exists for ingredients
-       if (data.food.dietLabels && data.food.dietLabels.length > 0) {
-        dietTypeElement.textContent = data.food.dietLabels.join(', ');
-    } else {
-        dietTypeElement.textContent = 'No diet label available';
+    const nutritionCardBody = document.createElement("div");
+    nutritionCardBody.className = "card-body";
+
+    // Add nutrition facts to the card
+    for (const nutrient of Object.values(data.recipe.totalNutrients)) {
+        const nutrientElement = document.createElement("p");
+        nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
+        nutritionCardBody.appendChild(nutrientElement);
     }
-}
 
-    // Appends elements to the right sidebar - Evan.
+    // Append elements to the right sidebar
     rightSidebar.appendChild(recipeNameElement);
     rightSidebar.appendChild(heartElement);
-    rightSidebar.appendChild(dietTypeElement);
     rightSidebar.appendChild(imageElement);
+    rightSidebar.appendChild(nutritionCard);
+    nutritionCard.appendChild(nutritionCardBody);
+
     saveBtnFnc();
 }
+
 
 // function for event listener for ingredients button - Evan.
 let ingredientsListener = function (event) {
@@ -122,21 +122,21 @@ let ingredientsListener = function (event) {
         openRightNav();
     }
     takeIngredients(ingredientsValue, updateRightSidebar);
-    
+
 };
 // function for ingredients 
 function takeIngredients(value, updateRightSidebar) {
     let ingredientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
-    
+
     fetch(ingredientsURL)
         .then(function (response) {
             return response.json();
         }).then(function (data) {
-        cardDelete();
-        ingredientsCardPrint(data);
-        // if (updateRightSidebar) {
-        //     updateRightSidebar(data.hints[0]); 
-        // }
+            cardDelete();
+            ingredientsCardPrint(data);
+            // if (updateRightSidebar) {
+            //     updateRightSidebar(data.hints[0]); 
+            // }
             console.log(data);
         })
 }
@@ -161,8 +161,8 @@ document.addEventListener("mouseup", function (e) {
 });
 
 // function for print card with object
-function recipesCardPrint(value){
-    for (let i = 0; i < 4; i++){
+function recipesCardPrint(value) {
+    for (let i = 0; i < 4; i++) {
         let cardBody = $("<div>");
         cardBody.attr("class", "card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         let recipeName = $("<h3>");
@@ -182,8 +182,8 @@ function recipesCardPrint(value){
 }
 
 // function for ingredients card printer
-function ingredientsCardPrint(value){
-    for (let i = 0; i < 4; i++){
+function ingredientsCardPrint(value) {
+    for (let i = 0; i < 4; i++) {
         let cardBody = $("<section>");
         cardBody.attr("class", "card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         let ingredientName = $("<h3>");
@@ -206,10 +206,10 @@ function ingredientsCardPrint(value){
     };
 }
 // function to delete card after click
-function cardDelete(){
+function cardDelete() {
     let cardArrayEL = document.querySelectorAll(".card");
     console.log(cardArrayEL);
-    for(let i = 0; i < cardArrayEL.length; i++){
+    for (let i = 0; i < cardArrayEL.length; i++) {
         cardArrayEL[i].remove();
     }
 }
@@ -219,15 +219,15 @@ formEL.on("click", "#ingredients-button", ingredientsListener);
 // takeRecipe();
 
 
-/* What Kenny added
+/* What Kenny added */
 
-/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+/* Set the width of the sidebar and the left margin */
 function openNav() {
     document.getElementById("mySidebar").style.width = "250px";
     document.getElementById("main").style.marginLeft = "250px";
 }
 
-/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+/* Set the width of the sidebar and the left margin */
 function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
     document.getElementById("main").style.marginLeft = "0";
@@ -247,9 +247,9 @@ function closeRightNav() {
 // function to retrieve information from local storage and print it at sidebar
 function recipesFromLocalStorage() {
     let storedRecipes = JSON.parse(localStorage.getItem("recipeValue"));
-    if(storedRecipes !== null){
+    if (storedRecipes !== null) {
         recipeArray = storedRecipes;
-        for(let i = 0; i < storedRecipes.length; i++){
+        for (let i = 0; i < storedRecipes.length; i++) {
             let sideBtnEL = $("<button>");
             sideBtnEL.text(storedRecipes[i]);
             sideBtnEL.attr("class", "side-btn");
@@ -261,41 +261,41 @@ recipesFromLocalStorage();
 
 // event listener for clear history button
 let clear = document.querySelector("#clear-btn");
-clear.addEventListener("click", function(){
+clear.addEventListener("click", function () {
     let empty = [];
-    localStorage.setItem("recipeValue",JSON.stringify(empty));
+    localStorage.setItem("recipeValue", JSON.stringify(empty));
     // localStorage.setItem("favoriteRecipe", JSON.stringify(empty));
     let sideBtnArreyEL = document.querySelectorAll(".side-btn");
-    for(let i = 0; i < sideBtnArreyEL.length; i++){
+    for (let i = 0; i < sideBtnArreyEL.length; i++) {
         sideBtnArreyEL[i].remove();
     }
 });
 
 // function for side bar printing
-let sideBarPrint = function(data) {
+let sideBarPrint = function (data) {
     // event.preventDefault();
     document.getElementById("recipe-name").textContent = `${data.hits[0].recipe.label}`;
 }
 
 // function for event listenner for favorite button
-function saveBtnFnc(){
+function saveBtnFnc() {
     let saveButtonEL = document.querySelector("#save-btn");
     let recipeNameEL = document.querySelector("#recipe-name");
-    saveButtonEL.addEventListener("click", function(event){
+    saveButtonEL.addEventListener("click", function (event) {
         event.preventDefault();
         let recipeName = recipeNameEL.innerText.trim();
         console.log(recipeName);
         favoriteArray.push(recipeName);
         localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
-});
+    });
 }
 
 // function to print favorite recipes from local storage
 function favoritesFromLocalStorage() {
     let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
-    if(storedFavorites !== null){
+    if (storedFavorites !== null) {
         favoriteArray = storedFavorites;
-        for(let i = 0; i < storedFavorites.length; i++){
+        for (let i = 0; i < storedFavorites.length; i++) {
             let sideBtnEL = $("<button>");
             sideBtnEL.text(storedFavorites[i]);
             sideBtnEL.attr("class", "favorite-btn");
