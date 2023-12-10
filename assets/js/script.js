@@ -55,9 +55,6 @@ function takeRecipe(value) {
         cardDelete();
         recipesCardPrint(data);
         updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
-        // sideBarPrint(data);
-        // updateRightSidebar(data.hits[0]);
-        // (callback.hits[0]); // Pass the first recipe to the callback - Evan.
         
             console.log(data);
         });
@@ -110,38 +107,73 @@ function updateRightSidebar(data) {
     saveBtnFnc();
 }
 
-// function for event listener for ingredients button - Evan.
-let ingredientsListener = function (event) {
+formEL.on("click", "#ingredients-button", ingredientsListener);
+
+// Function for event listener for ingredients button
+function ingredientsListener(event) {
     event.preventDefault();
     let ingredientsValue = ingredientsInputEL.value.trim();
     let dietInput = dietInputEL.value;
-    console.log(ingredientsValue);
 
     if (ingredientsValue && dietInput) {
-        // If both conditions are met, the right sidebar should open - Evan.
         openRightNav();
     }
-    takeIngredients(ingredientsValue, updateRightSidebar);
-    
-};
-// function for ingredients 
+    takeIngredients(ingredientsValue, updateRightSidebarForIngredients);
+}
+
+// Function for handling ingredients - Evan.
 function takeIngredients(value, updateRightSidebar) {
     let ingredientsURL = `https://api.edamam.com/api/food-database/v2/parser?app_id=5751213b&app_key=ae5681efc5888ec628f12482de9399ed&ingr=${value}&nutrition-type=cooking`;
-    
+
     fetch(ingredientsURL)
         .then(function (response) {
             return response.json();
-        }).then(function (data) {
-        cardDelete();
-        ingredientsCardPrint(data);
-        // if (updateRightSidebar) {
-        //     updateRightSidebar(data.hints[0]); 
-        // }
-            console.log(data);
         })
+        .then(function (data) {
+            cardDelete();
+            ingredientsCardPrint(data);
+            if (updateRightSidebar) {
+                // Checks the type of data and calls the appropriate function - Evan.
+                if (data.hints && data.hints.length > 0) {
+                    updateRightSidebar(data.hints[0]); // Passes the first ingredient to the rightsidebar - Evan.
+                } else {
+                    console.error("No hints data found for ingredients.");
+                }
+            }
+            console.log(data);
+        });
 }
-// Event listener, when ingredients button is submitted, right sidebar nav is event is executed - Evan. 
-formEL.on("click", "#ingredients-button", ingredientsListener);
+
+function updateRightSidebarForIngredients(data) {
+    console.log("Data for right sidebar (ingredients):", data);
+    const rightSidebar = document.getElementById("rightSidebar");
+
+    rightSidebar.innerHTML = "";
+    const ingredientNameElement = document.createElement("h3");
+    ingredientNameElement.textContent = data.food.label;
+    ingredientNameElement.setAttribute("id", "ingredient-name");
+
+    const dietTypeElement = document.createElement("p");
+    const imageElement = document.createElement("img");
+
+    if (data.food) {
+        ingredientNameElement.textContent = data.food.label;
+        imageElement.src = data.food.image;
+        imageElement.alt = data.food.label;
+
+        // Checks if diet label exists for ingredients - Evan.
+        if (data.food.dietLabels && data.food.dietLabels.length > 0) {
+            dietTypeElement.textContent = data.food.dietLabels.join(', ');
+        } else {
+            dietTypeElement.textContent = 'No diet label available';
+        }
+    }
+
+    // Appends elements to the right sidebar for ingredients - Evan.
+    rightSidebar.appendChild(ingredientNameElement);
+    rightSidebar.appendChild(dietTypeElement);
+    rightSidebar.appendChild(imageElement);
+}
 
 function showDietOptions() {
     document.getElementById("dietOptions").style.display = "block";
