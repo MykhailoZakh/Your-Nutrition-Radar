@@ -5,7 +5,7 @@ let dietInputEL = document.querySelector("#dietInput");
 let ingredientsInputEL = document.querySelector("#ingredientsInput");
 let cardHolderEL = $("#object");
 let recipeArray = [];
-let favoriteArray = [];
+let favoriteArray = ['empty'];
 
 // function for event listener for recipe button
 let inputListener = function (event) {
@@ -328,12 +328,30 @@ function favoritesFromLocalStorage() {
     let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
     if (storedFavorites !== null) {
         favoriteArray = storedFavorites;
-        for (let i = 0; i < storedFavorites.length; i++) {
+        for (let i = 1; i < storedFavorites.length; i++) {
             let sideBtnEL = $("<button>");
+            let xBtnEl = $("<button>");
+            xBtnEl.attr("class", "favorite-delite-btn");
             sideBtnEL.text(storedFavorites[i]);
             sideBtnEL.attr("class", "favorite-btn");
+            sideBtnEL.append(xBtnEl);
             $("#favorites").append(sideBtnEL);
+            
         }
     }
 }
 favoritesFromLocalStorage();
+
+// event listener for X button to remove item from favorites
+$(".favorite-btn").on("click", ".favorite-delite-btn", function(event){
+    console.log(`${event.target.parentElement.innerText}`);
+    let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
+    if (storedFavorites !== null) {
+        favoriteArray = storedFavorites;
+        let stringArray = favoriteArray.toString();
+        let newStringArray = stringArray.replace(`,${event.target.parentElement.innerText}`, "");
+        let newFavoriteArray = newStringArray.split(",");
+        localStorage.setItem("favoriteRecipe", JSON.stringify(newFavoriteArray));
+        event.target.parentElement.remove();
+    }
+})
