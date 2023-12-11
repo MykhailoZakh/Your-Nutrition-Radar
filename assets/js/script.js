@@ -161,6 +161,13 @@ function updateRightSidebar(data) {
 
         const nutritionCardBody = document.createElement("div");
         nutritionCardBody.className = "card-body";
+        
+        const instructionCard = document.createElement("div");
+        instructionCard.className = "card-body text-center mb-3";
+
+        const instructionsTitle = document.createElement("h4");
+        instructionsTitle.textContent = "Cooking Instructions";
+        instructionCard.appendChild(instructionsTitle);
 
         // Add nutrition facts to the card - Kenny
         for (const nutrient of Object.values(data.recipe.totalNutrients)) {
@@ -168,10 +175,16 @@ function updateRightSidebar(data) {
             nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
             nutritionCardBody.appendChild(nutrientElement);
         }
-
+        // Add instructions to the card
+        for(let i = 0; i < data.recipe.instructionLines.length; i++){
+            const instructionElement = document.createElement("p");
+            instructionElement.textContent = data.recipe.instructionLines[i];
+            instructionCard.appendChild(instructionElement);
+        }
         // Append nutrition card - Kenny
         nutritionCard.appendChild(nutritionCardBody);
         rightSidebar.appendChild(nutritionCard);
+        rightSidebar.appendChild(instructionCard);
     }
 
 
@@ -516,3 +529,16 @@ $("#history").on("click", ".side-btn", function (event) {
     openRightNav();
     closeNav();
 });
+
+// functions for left side bar 
+function openNav() {
+    document.getElementById("mySidebar").classList.add("show");
+    document.getElementById("main").style.marginLeft = "250px";
+    document.getElementById("open-btn").style.display = "none";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidebar").classList.remove("show");
+    document.getElementById("main").style.marginLeft = "0";
+    document.getElementById("open-btn").style.display = "block";
+  }
