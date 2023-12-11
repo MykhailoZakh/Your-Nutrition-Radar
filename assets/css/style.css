@@ -189,9 +189,7 @@ label {
     margin-bottom: 20px; /* Adjust as needed */
 }
 
-.card-body {
-    /* background-color: aliceblue; */
-}
+
 
 .recipe-card:hover {
     cursor: pointer;
@@ -203,4 +201,9 @@ label {
 
 .sidebar-card {
     background-color: rgb(94, 184, 94);
+}
+
+#recipe-button, #ingredients-button {
+    background-color: #ebb23e;
+    color: white;
 }
