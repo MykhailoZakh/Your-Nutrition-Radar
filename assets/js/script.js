@@ -233,7 +233,7 @@ function updateRightSidebarForIngredients(data) {
         imageElement.src = data.food.image;
         imageElement.alt = data.food.label;
  
-         // Nutrition facts card - Kenny
+         // Nutrition facts card - Kennyхолестерину
          const nutritionCard = document.createElement("div");
          nutritionCard.className = "card text-center mb-3";
  
@@ -241,16 +241,44 @@ function updateRightSidebarForIngredients(data) {
          nutritionCardBody.className = "card-body";
 
          console.log('Data for right sidebar (ingredients):', data);
-
-        for (const nutrient of Object.values(data.food.nutrients)) {
-            const nutrientElement = document.createElement("p");
-            console.log('Nutrient quantity:', nutrient.quantity);
-        const quantityText = nutrient.quantity !== undefined ? nutrient.quantity.toFixed(2) : 'N/A';  // Checks if quantity is defined before using toFixed - Evan.
-        nutrientElement.textContent = `${nutrient.label}: ${quantityText} ${nutrient.unit}`;
-        nutritionCardBody.appendChild(nutrientElement);
-        console.log('Data for right sidebar (ingredients):', data);
+        
+        for(let i = 0; i < 6; i++){
+            const nutritionEl = document.createElement("p");
+            nutritionEl.setAttribute("class", "card-body text-center mb-3");
+            if(i === 0){
+                nutritionEl.textContent = `Energy: ${data.food.nutrients.ENERC_KCAL} KCal`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 1){
+                nutritionEl.textContent = `Carbohydrates: ${data.food.nutrients.CHOCDF} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 2){
+                nutritionEl.textContent = `Fat: ${data.food.nutrients.FAT} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 3){
+                nutritionEl.textContent = `Fiber: ${data.food.nutrients.FIBTG} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 4){
+                nutritionEl.textContent = `Protein: ${data.food.nutrients.PROCNT} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 5){
+                nutritionEl.textContent = `Weight: 100 g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
         }
-   
+        // for (const nutrient of Object.values(data.food.nutrients)) {
+        //     const nutrientElement = document.createElement("p");
+        //     console.log('Nutrient quantity:', nutrient.quantity);
+        // const quantityText = nutrient.quantity !== undefined ? nutrient.quantity.toFixed(2) : 'N/A';  // Checks if quantity is defined before using toFixed - Evan.
+        // nutrientElement.textContent = `${nutrient.label}: ${quantityText} ${nutrient.unit}`;
+        // nutritionCardBody.appendChild(nutrientElement);
+        // console.log('Data for right sidebar (ingredients):', data);
+        // }
+        
 
              // Favorites button - Mykhailo
          const heartElement = document.createElement("button");
