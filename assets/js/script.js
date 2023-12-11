@@ -295,6 +295,7 @@ function recipesCardPrint(value) {
         cardBody.attr("class", "card recipe-card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         cardBody.on("click", function () {
             updateRightSidebar(value.hits[i]); // Allows card body to be clicked and display clicked recipe on rightsidebar - Evan.
+            openRightNav();
         });
         let recipeName = $("<h3>");
         recipeName.attr("class", "card-title");
