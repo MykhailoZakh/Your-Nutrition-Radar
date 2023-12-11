@@ -54,6 +54,9 @@ function takeRecipe(value) {
 }
 
 function updateRightSidebar(data) {
+    console.log("Data for right sidebar:", data);
+    if (data && data.recipe) { // test - evan.
+
     const rightSidebar = document.getElementById("rightSidebar");
     rightSidebar.innerHTML = "";
     const exElement = document.createElement("a")
@@ -183,7 +186,7 @@ if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length
         rightSidebar.appendChild(instructionCard);
     }
 
-
+    }
     saveBtnFnc();
 }
 
@@ -322,11 +325,14 @@ document.addEventListener("mouseup", function (e) {
 // function for print card with object
 function recipesCardPrint(value) {
     for (let i = 0; i < value.hits.length; i++) {
+        // if (value.hits[i]) { // Test - Evan.
         let cardBody = $("<div>");
         cardBody.attr("class", "card recipe-card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         cardBody.on("click", function () {
+            if (value.hits[i]) { // test - evan.
             updateRightSidebar(value.hits[i]); // Allows card body to be clicked and display clicked recipe on rightsidebar - Evan.
             openRightNav();
+            }
         });
         let recipeName = $("<h3>");
         recipeName.attr("class", "card-title");
@@ -343,10 +349,12 @@ function recipesCardPrint(value) {
         cardBody.append(image);
     };
 }
+// Changed values from hits to hints - Evan.
 
 // function for ingredients card printer
 function ingredientsCardPrint(value) {
     for (let i = 0; i < 4; i++) {
+        if (value.hints[i] && value.hints[i].food) { // Testing - Evan.
         let cardBody = $("<section>");
         cardBody.attr("class", "card ingredient-card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         cardBody.on("click", function () {
@@ -370,6 +378,7 @@ function ingredientsCardPrint(value) {
         cardBody.append(kCal);
         cardBody.append(weight);
     };
+}
 }
 // function to delete card after click
 function cardDelete() {
