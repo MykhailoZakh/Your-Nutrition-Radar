@@ -290,7 +290,7 @@ document.addEventListener("mouseup", function (e) {
 
 // function for print card with object
 function recipesCardPrint(value) {
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < value.hits.length; i++) {
         let cardBody = $("<div>");
         cardBody.attr("class", "card recipe-card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         cardBody.on("click", function () {
