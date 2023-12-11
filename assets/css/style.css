@@ -86,10 +86,12 @@ label {
 
 .openbtn {
     position: fixed;
-    top: 10px;
-    left: 10px;
+    top: 0px;
+    left: 0px;
     font-size: 20px;
     color: #88CA5E;
+    background-color: white;
+    padding: 15px;
 }
 
 .closebtn {

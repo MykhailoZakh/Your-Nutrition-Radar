@@ -131,33 +131,33 @@ function updateRightSidebar(data) {
         rightSidebar.appendChild(noIngredientsCard);
     }
 
-    // New section - Create card for cooking instructions - Kenny
-    if (data.recipe.cookingInstructions) {
-        const instructionsCard = document.createElement("div");
-        instructionsCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
+    // // New section - Create card for cooking instructions - Kenny
+    // if (data.recipe.cookingInstructions) {
+    //     const instructionsCard = document.createElement("div");
+    //     instructionsCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
 
-        const instructionsCardBody = document.createElement("div");
-        instructionsCardBody.className = "sidebar-card";
+    //     const instructionsCardBody = document.createElement("div");
+    //     instructionsCardBody.className = "sidebar-card";
 
-        // Add cooking instructions to the card - Kenny
-        const instructionsTitle = document.createElement("h4");
-        instructionsTitle.textContent = "Cooking Instructions";
-        instructionsTitle.className = "text-center";
-        instructionsCardBody.appendChild(instructionsTitle);
+    //     // Add cooking instructions to the card - Kenny
+    //     const instructionsTitle = document.createElement("h4");
+    //     instructionsTitle.textContent = "Cooking Instructions";
+    //     instructionsTitle.className = "text-center";
+    //     instructionsCardBody.appendChild(instructionsTitle);
 
-        const instructionsElement = document.createElement("p");
-        instructionsElement.textContent = data.recipe.cookingInstructions;
-        instructionsCardBody.appendChild(instructionsElement);
+    //     const instructionsElement = document.createElement("p");
+    //     instructionsElement.textContent = data.recipe.cookingInstructions;
+    //     instructionsCardBody.appendChild(instructionsElement);
 
-        // Append instructions card - Kenny
-        instructionsCard.appendChild(instructionsCardBody);
-        rightSidebar.appendChild(instructionsCard);
-    }
+    //     // Append instructions card - Kenny
+    //     instructionsCard.appendChild(instructionsCardBody);
+    //     rightSidebar.appendChild(instructionsCard);
+    // }
 
 // Create card for nutrition facts - Kenny
 if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length > 0) {
     const nutritionCard = document.createElement("div");
-    nutritionCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
+    nutritionCard.className = "sidebar-card my-2 mx-1 px-2 rounded";
 
         // Create title element for nutrition facts - Kenny
         const nutritionTitle = document.createElement("h4");
@@ -165,21 +165,30 @@ if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length
         nutritionTitle.className = "text-center";
         nutritionCard.appendChild(nutritionTitle);
 
-    const nutritionCardBody = document.createElement("div");
-    nutritionCardBody.className = "sidebar-card";
+        const nutritionCardBody = document.createElement("div");
+        nutritionCardBody.className = "grid-container sidebar-card";   
         
         const instructionCard = document.createElement("div");
-        instructionCard.className = "card-body text-center mb-3";
+        instructionCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
 
         const instructionsTitle = document.createElement("h4");
         instructionsTitle.textContent = "Cooking Instructions";
+        instructionsTitle.className = "text-center";
         instructionCard.appendChild(instructionsTitle);
 
         // Add nutrition facts to the card - Kenny
         for (const nutrient of Object.values(data.recipe.totalNutrients)) {
-            const nutrientElement = document.createElement("p");
-            nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
-            nutrientElement.className = "text-center my-2 border-bottom";
+            const nutrientElement = document.createElement("div");
+            nutrientElement.className = "grid-x align-spacecd my-2 border-bottom";
+            // nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
+            const nutrientLabelEl = document.createElement("div")
+            nutrientLabelEl.className = "cell small-6"
+            nutrientLabelEl.textContent =  `${nutrient.label}`;
+            const nutrientValueEl = document.createElement("div");
+            nutrientValueEl.className = "cell small-6 text-right"
+            nutrientValueEl.textContent = `${nutrient.quantity.toFixed(2)} ${nutrient.unit}`
+            nutrientElement.appendChild(nutrientLabelEl);
+            nutrientElement.appendChild(nutrientValueEl);
             nutritionCardBody.appendChild(nutrientElement);
         }
         // Add instructions to the card
