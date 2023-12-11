@@ -15,16 +15,13 @@ let inputListener = function (event) {
 
     // local storage
     recipeArray.push(inputValue);
-    console.log(recipeArray);
     localStorage.setItem("recipeValue", JSON.stringify(recipeArray));
     // recipesFromLocalStorage();
 
     if (!dietInput) {
         takeRecipe(inputValue, updateRightSidebar); // Should pass the updateRightSidebar function as a callback - Evan.
-        console.log(inputValue, updateRightSidebar);
     } else {
         takeRecipeWDiet(inputValue, dietInput, updateRightSidebar); // Should pass the updateRightSidebar function as a callback - Evan.
-        console.log(inputValue, dietInput, updateRightSidebar);
     }
     openRightNav(); // When user inputs recipe and selects diet, right nav should appear - Evan.
 };
@@ -40,7 +37,6 @@ function takeRecipeWDiet(value, diet, updateRightSidebar) {
             cardDelete();
             recipesCardPrint(data);
             updateRightSidebar(data.hits[0]); // Should pass the first recipe to the callback - Evan.
-            console.log(data);
         })
 };
 
@@ -54,16 +50,11 @@ function takeRecipe(value) {
             cardDelete();
             recipesCardPrint(data);
             updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
-
-            console.log(data);
         });
 }
 
 function updateRightSidebar(data) {
-    console.log("Data for right sidebar:", data);
-
     const rightSidebar = document.getElementById("rightSidebar");
-
     rightSidebar.innerHTML = "";
     const exElement = document.createElement("a")
     exElement.setAttribute("href", "javascript:void(0)");
@@ -77,17 +68,16 @@ function updateRightSidebar(data) {
     heartElement.textContent = `❤`;
 
     let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
-    console.log(storedFavorites);
-    for(let i = 0; i < storedFavorites.length; i ++){
-        if(storedFavorites[i] == data.recipe.label){
-            heartElement.removeAttribute("id", "save-btn");
-            heartElement.setAttribute("class", "saved-btn");
-            console.log(storedFavorites[i]);
-            console.log(data.recipe.label);
-            break;
-        }
+    
+    if(storedFavorites !== null){
+        for(let i = 0; i < storedFavorites.length; i ++){
+            if(storedFavorites[i] == data.recipe.label){
+                heartElement.removeAttribute("id", "save-btn");
+                heartElement.setAttribute("class", "saved-btn");
+                break;
+            }
     }
-
+    }
     // Should create elements to display recipe details - Evan.
     const recipeNameElement = document.createElement("h3");
     recipeNameElement.textContent = data.recipe.label;
@@ -205,9 +195,6 @@ function ingredientsListener(event) {
     let ingredientsValue = ingredientsInputEL.value.trim();
     // let dietInput = dietInputEL.value;
 
-    if (ingredientsValue && dietInput) {
-        openRightNav();
-    }
     takeIngredients(ingredientsValue, updateRightSidebarForIngredients);
 }
 
@@ -231,7 +218,7 @@ function takeIngredients(value, updateRightSidebar) {
                     console.error("No hints data found for ingredients.");
                 }
             }
-            console.log(data);
+        
         });
 }
 
@@ -265,7 +252,6 @@ function updateRightSidebarForIngredients(data) {
          const nutritionCardBody = document.createElement("div");
          nutritionCardBody.className = "sidebar-card";
 
-         console.log('Data for right sidebar (ingredients):', data);
         
         for(let i = 0; i < 6; i++){
             const nutritionEl = document.createElement("p");
@@ -388,7 +374,6 @@ function ingredientsCardPrint(value) {
 // function to delete card after click
 function cardDelete() {
     let cardArrayEL = document.querySelectorAll(".card");
-    console.log(cardArrayEL);
     for (let i = 0; i < cardArrayEL.length; i++) {
         cardArrayEL[i].remove();
     }
@@ -467,7 +452,6 @@ function saveBtnFnc() {
             saveButtonEL.addEventListener("click", function (event) {
                 event.preventDefault();
                 let recipeName = recipeNameEL.innerText.trim();
-                console.log(recipeName);
                 favoriteArray.push(recipeName);
                 localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
             });
@@ -496,7 +480,6 @@ favoritesFromLocalStorage();
 
 // event listener for X button to remove item from favorites
 $(".favorite-btn").on("click", ".favorite-delete-btn", function (event) {
-    console.log(`${event.target.parentElement.innerText}`);
     let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
     if (storedFavorites !== null) {
         favoriteArray = storedFavorites;
@@ -510,7 +493,6 @@ $(".favorite-btn").on("click", ".favorite-delete-btn", function (event) {
 
 // event listener for favorite buttons
 $("#favorites").on("click", ".favorite-btn", function (event) {
-    console.log(event.target.innerText);
     favoriteAPIFunc(event.target.innerText);
     closeNav();
 })
@@ -522,7 +504,6 @@ function favoriteAPIFunc(value) {
         .then(function (response) {
             return response.json();
         }).then(function (data) {
-            console.log(data);
             updateRightSidebar(data.hits[0]);
             openRightNav();
         });
@@ -530,7 +511,6 @@ function favoriteAPIFunc(value) {
 
 // event listener for history button
 $("#history").on("click", ".side-btn", function (event) {
-    console.log(event.target.innerText);
     let selectedRecipe = event.target.innerText;
     takeRecipe(selectedRecipe, updateRightSidebar);
     openRightNav();
