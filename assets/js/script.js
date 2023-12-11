@@ -155,7 +155,7 @@ function updateRightSidebar(data) {
     // Create card for nutrition facts - Kenny
     if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length > 0) {
         const nutritionCard = document.createElement("div");
-        nutritionCard.className = "card text-center mb-3";
+        nutritionCard.className = "card-body text-center mb-3";
 
         const nutritionCardBody = document.createElement("div");
         nutritionCardBody.className = "card-body";
