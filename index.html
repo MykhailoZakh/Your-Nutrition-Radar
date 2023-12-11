@@ -15,22 +15,22 @@
 <body>
   <div class="grid-container-full">
 
-    <header class="grid-x header align-spaced align-middle">
-      <img class="cell small-3 shrink header-icon" src="./assets/Images/Your-Nutrition-Radar-Logo.png"
-        alt="Your Nutrition Radar Logo" class="header-icon">
+    <header class="grid-x align-right align-middle">
+      <img class="cell small-3 shrink header-icon mx-3" src="./assets/Images/Your-Nutrition-Radar-Logo.png"
+        alt="Your Nutrition Radar Logo">
     </header>
 
     <form class="grid-x grid-margin-y grid-margin-x mx-2" id="form">
       <div class="cell small-auto medium-6 bg-light my-2 px-2 rounded">
         <label for="input" class="cell my-1 form-label">Find a Recipe</label>
         <input type="recipe" class="cell form-control" id="input">
-        <button id="recipe-button" type="submit" class="cell my-1 btn btn-primary rounded">Submit</button>
+        <button id="recipe-button" type="submit" class="cell my-1 btn  rounded">Submit</button>
       </div>
 
       <div class="cell small-auto medium-6 bg-light my-2 px-2 rounded">
         <label for="ingredientsInput" class="cell my-1 form-label">Search Ingredients</label>
         <input type="ingredients" class="cell form-control" id="ingredientsInput">
-        <button id="ingredients-button" type="submit" class="cell my-1 btn btn-primary rounded">Submit</button>
+        <button id="ingredients-button" type="submit" class="cell my-1 btn  rounded">Submit</button>
       </div>
 
       <div class="cell small-auto medium-auto bg-light my-2 px-2 rounded">
@@ -64,7 +64,7 @@
       </div>
 
       <div id="main">
-        <button class="openbtn" onclick="openNav()">&#9776; <strong>Open Favorites</strong></button>
+        <button id="open-btn" class="openbtn" onclick="openNav()">&#9776; <strong>Open Favorites</strong></button>
       </div>
       
     </div>
@@ -119,17 +119,7 @@
     integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
   <script src="./assets/js/script.js"></script>
 
-  <script>
-    function openNav() {
-      document.getElementById("mySidebar").classList.add("show");
-      document.getElementById("main").style.marginLeft = "250px";
-    }
-
-    function closeNav() {
-      document.getElementById("mySidebar").classList.remove("show");
-      document.getElementById("main").style.marginLeft = "0";
-    }
-  </script>
+ 
 
 
 </body>
