@@ -295,6 +295,7 @@ function updateRightSidebarForIngredients(data) {
                 nutritionEl.textContent = `Weight: 100 g`;
                 nutritionCardBody.appendChild(nutritionEl);
             }
+            openRightNav();
         }
        
         
@@ -367,7 +368,7 @@ function ingredientsCardPrint(value) {
         let cardBody = $("<section>");
         cardBody.attr("class", "card ingredient-card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         cardBody.on("click", function () {
-            updateRightSidebar(value.hits[i]); // Allows card body to be clicked and display clicked recipe on rightsidebar - Evan.
+            updateRightSidebarForIngredients(value.hints[i]); // Allows card body to be clicked and display clicked recipe on rightsidebar - Evan.
         });
         let ingredientName = $("<h3>");
         ingredientName.attr("class", "card-title");
