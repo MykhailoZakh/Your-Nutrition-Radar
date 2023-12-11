@@ -175,18 +175,13 @@ function updateRightSidebar(data) {
     saveBtnFnc();
 }
 
-
-
-
-
-
 formEL.on("click", "#ingredients-button", ingredientsListener);
 
 // Function for event listener for ingredients button
 function ingredientsListener(event) {
     event.preventDefault();
     let ingredientsValue = ingredientsInputEL.value.trim();
-    let dietInput = dietInputEL.value;
+    // let dietInput = dietInputEL.value;
 
     if (ingredientsValue && dietInput) {
         openRightNav();
@@ -242,15 +237,17 @@ function updateRightSidebarForIngredients(data) {
          const nutritionCardBody = document.createElement("div");
          nutritionCardBody.className = "card-body";
 
-        // Should display and append nutrients card.
+         console.log('Data for right sidebar (ingredients):', data);
+
         for (const nutrient of Object.values(data.food.nutrients)) {
             const nutrientElement = document.createElement("p");
-
-        // Checks if quantity is defined before using toFixed - Evan.
-        const quantityText = nutrient.quantity !== undefined ? nutrient.quantity.toFixed(2) : 'N/A';
+            console.log('Nutrient quantity:', nutrient.quantity);
+        const quantityText = nutrient.quantity !== undefined ? nutrient.quantity.toFixed(2) : 'N/A';  // Checks if quantity is defined before using toFixed - Evan.
         nutrientElement.textContent = `${nutrient.label}: ${quantityText} ${nutrient.unit}`;
         nutritionCardBody.appendChild(nutrientElement);
+        console.log('Data for right sidebar (ingredients):', data);
         }
+   
 
              // Favorites button - Mykhailo
          const heartElement = document.createElement("button");
@@ -268,6 +265,7 @@ function updateRightSidebarForIngredients(data) {
     saveBtnFnc();
 }
 }
+
 
 
 function showDietOptions() {
@@ -451,3 +449,4 @@ $(".favorite-btn").on("click", ".favorite-delete-btn", function (event) {
         event.target.parentElement.remove();
     }
 })
+
