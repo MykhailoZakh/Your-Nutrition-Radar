@@ -95,20 +95,23 @@ function updateRightSidebar(data) {
     // Create card for ingredients - New section - Kenny
     if (data.recipe.ingredientLines && data.recipe.ingredientLines.length > 0) {
         const ingredientsCard = document.createElement("div");
-        ingredientsCard.className = "card-body text-center mb-3";
+        ingredientsCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
 
         const ingredientsCardBody = document.createElement("div");
-        ingredientsCardBody.className = "card-body";
+        ingredientsCardBody.className = "sidebar-card";
 
         // Add ingredients to the card - Kenny
         const ingredientsTitle = document.createElement("h4");
         ingredientsTitle.textContent = "Ingredients";
+        ingredientsTitle.className = "text-center";
         ingredientsCardBody.appendChild(ingredientsTitle);
+        const ingredientsList = document.createElement("ul")
+        ingredientsCardBody.appendChild(ingredientsList);
 
         for (const ingredient of data.recipe.ingredientLines) {
-            const ingredientElement = document.createElement("p");
+            const ingredientElement = document.createElement("li");
             ingredientElement.textContent = ingredient;
-            ingredientsCardBody.appendChild(ingredientElement);
+            ingredientsList.appendChild(ingredientElement);
         }
 
         // Append ingredients card - Kenny
@@ -116,10 +119,10 @@ function updateRightSidebar(data) {
         rightSidebar.appendChild(ingredientsCard);
     } else {
         const noIngredientsCard = document.createElement("div");
-        noIngredientsCard.className = "card-body text-center mb-3";
+        noIngredientsCard.className = "sidebar-card text-center mb-3";
 
         const noIngredientsCardBody = document.createElement("div");
-        noIngredientsCardBody.className = "card-body";
+        noIngredientsCardBody.className = "sidebar-card";
 
         noIngredientsCardBody.innerHTML = "<p>No ingredients available.</p>";
 
@@ -130,14 +133,15 @@ function updateRightSidebar(data) {
     // New section - Create card for cooking instructions - Kenny
     if (data.recipe.cookingInstructions) {
         const instructionsCard = document.createElement("div");
-        instructionsCard.className = "card-body text-center mb-3";
+        instructionsCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
 
         const instructionsCardBody = document.createElement("div");
-        instructionsCardBody.className = "card-body";
+        instructionsCardBody.className = "sidebar-card";
 
         // Add cooking instructions to the card - Kenny
         const instructionsTitle = document.createElement("h4");
         instructionsTitle.textContent = "Cooking Instructions";
+        instructionsTitle.className = "text-center";
         instructionsCardBody.appendChild(instructionsTitle);
 
         const instructionsElement = document.createElement("p");
@@ -152,7 +156,7 @@ function updateRightSidebar(data) {
 // Create card for nutrition facts - Kenny
 if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length > 0) {
     const nutritionCard = document.createElement("div");
-    nutritionCard.className = "card-body text-center mb-3";
+    nutritionCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
 
     // Create title element for nutrition facts - Kenny
     const nutritionTitle = document.createElement("h4");
@@ -160,7 +164,7 @@ if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length
     nutritionCard.appendChild(nutritionTitle);
 
     const nutritionCardBody = document.createElement("div");
-    nutritionCardBody.className = "card-body";
+    nutritionCardBody.className = "sidebar-card";
 
     // Add nutrition facts to the card - Kenny
     for (const nutrient of Object.values(data.recipe.totalNutrients)) {
@@ -238,7 +242,7 @@ function updateRightSidebarForIngredients(data) {
          nutritionCard.className = "card text-center mb-3";
  
          const nutritionCardBody = document.createElement("div");
-         nutritionCardBody.className = "card-body";
+         nutritionCardBody.className = "sidebar-card";
 
          console.log('Data for right sidebar (ingredients):', data);
 
