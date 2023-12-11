@@ -54,7 +54,6 @@ function takeRecipe(value) {
 }
 
 function updateRightSidebar(data) {
-    console.log("Data for right sidebar:", data);
     if (data && data.recipe) { // test - evan.
 
     const rightSidebar = document.getElementById("rightSidebar");
