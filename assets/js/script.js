@@ -228,6 +228,12 @@ function updateRightSidebarForIngredients(data) {
     const rightSidebar = document.getElementById("rightSidebar");
 
     rightSidebar.innerHTML = "";
+    const exElement = document.createElement("a")
+    exElement.setAttribute("href", "javascript:void(0)");
+    exElement.setAttribute("class", "closebtn");
+    exElement.setAttribute("onclick", "closeRightNav()");
+    exElement.textContent = `✖`;
+
     const ingredientNameElement = document.createElement("h3");
     ingredientNameElement.textContent = data.food.label;
     ingredientNameElement.setAttribute("id", "recipe-name");
@@ -286,6 +292,7 @@ function updateRightSidebarForIngredients(data) {
         heartElement.textContent = `❤`;
 
         // Appends elements to the right sidebar for ingredients - Evan.
+        rightSidebar.appendChild(exElement);
         rightSidebar.appendChild(ingredientNameElement);
         rightSidebar.appendChild(heartElement);
         rightSidebar.appendChild(dietTypeElement);
