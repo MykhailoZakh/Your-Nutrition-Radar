@@ -34,6 +34,8 @@ label {
 
 .card {
     position: inherit;
+    overflow: auto;
+    height: auto;
 }
 
 #dietInput:hover {
@@ -66,6 +68,7 @@ label {
     color: #88CA5E;
     display: block;
     transition: color 0.3s;
+    
 }
 
 .sidebar a:hover {
@@ -118,10 +121,11 @@ label {
     right: 0;
     overflow-x: hidden;
     transition: width 0.5s ease-in-out;
+    
 }
 
 .right-sidebar.show {
-    width: 30%;
+    width: 40%;
 }
 
 #save-btn {
@@ -152,7 +156,6 @@ label {
     width: 100%;
     background-color: #88CA5E;
     color: white; 
-    display: block;
 }
 
 .favorite-delete-btn::after { content: "\2716"; }
@@ -169,3 +172,6 @@ label {
     margin-bottom: 20px; /* Adjust as needed */
 }
 
+.card-body {
+    background-color: aliceblue;
+}
