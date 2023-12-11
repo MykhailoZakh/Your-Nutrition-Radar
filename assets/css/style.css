@@ -33,7 +33,7 @@ label {
 }
 
 .card {
-    /* position: inherit; */
+    position: inherit;
     overflow: auto;
     height: auto;
 }
