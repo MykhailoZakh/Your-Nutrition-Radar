@@ -41,7 +41,6 @@ function takeRecipeWDiet(value, diet, updateRightSidebar) {
             recipesCardPrint(data);
             updateRightSidebar(data.hits[0]); // Should pass the first recipe to the callback - Evan.
             console.log(data);
-            console.log(data.hits[0].recipe.calories)
         })
 };
 
@@ -66,8 +65,6 @@ function updateRightSidebar(data) {
     const rightSidebar = document.getElementById("rightSidebar");
 
     rightSidebar.innerHTML = "";
-{/* <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> */}
-    //  Should create element to display X button - Mykhailo
     const exElement = document.createElement("a")
     exElement.setAttribute("href","javascript:void(0)");
     exElement.setAttribute("class", "closebtn");
@@ -450,3 +447,30 @@ $(".favorite-btn").on("click", ".favorite-delete-btn", function (event) {
     }
 })
 
+// event listener for favorite buttons
+$("#favorites").on("click", ".favorite-btn", function(event){   
+    console.log(event.target.innerText);
+    favoriteAPIFunc(event.target.innerText);
+    closeNav();
+})
+// function for favorite button listener
+function favoriteAPIFunc(value){
+    let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL`;
+
+    fetch(recipeURL)
+        .then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            console.log(data);
+            updateRightSidebar(data.hits[0]);
+            openRightNav();
+        });
+}
+
+// event listener for history button
+$("#history").on("click", ".side-btn", function(event){
+    console.log(event.target.innerText);
+    takeRecipe(event.target.innerText);
+    openRightNav();
+    closeNav();
+}) 
