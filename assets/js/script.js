@@ -320,6 +320,7 @@ document.addEventListener("mouseup", function (e) {
 // function for print card with object
 function recipesCardPrint(value) {
     for (let i = 0; i < value.hits.length; i++) {
+        // if (value.hits[i]) { // Test - Evan.
         let cardBody = $("<div>");
         cardBody.attr("class", "card recipe-card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         cardBody.on("click", function () {
@@ -331,18 +332,17 @@ function recipesCardPrint(value) {
         let recipeName = $("<h3>");
         recipeName.attr("class", "card-title");
         let image = $("<img>");
-        image.attr("src", `${value.hints[i].recipe.images.REGULAR.url}`)
+        image.attr("src", `${value.hits[i].recipe.images.REGULAR.url}`)
         image.attr("class", "header-icon border-dark rounded");
         let dietType = $("<p>");
         dietType.attr("class", "card-text");
-        recipeName.text(`${value.hints[i].recipe.label}`);
-        dietType.text(`${value.hints[i].recipe.dietLabels}`);
+        recipeName.text(`${value.hits[i].recipe.label}`);
+        dietType.text(`${value.hits[i].recipe.dietLabels}`);
         cardHolderEL.append(cardBody);
         cardBody.append(recipeName);
         cardBody.append(dietType);
         cardBody.append(image);
     };
-}
 }
 // Changed values from hits to hints - Evan.
 
@@ -354,7 +354,7 @@ function ingredientsCardPrint(value) {
         cardBody.attr("class", "card ingredient-card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         cardBody.on("click", function () {
             if (value.hints[i]) { // testing - Evan.
-            updateRightSidebar(value.hints[i]); // Allows card body to be clicked and display clicked recipe on rightsidebar - Evan.
+            updateRightSidebarForIngredients(value.hints[i]); // Allows card body to be clicked and display clicked recipe on rightsidebar - Evan.
           openRightNav();
         }
         });
