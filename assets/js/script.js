@@ -66,7 +66,7 @@ function updateRightSidebar(data) {
 
     rightSidebar.innerHTML = "";
     const exElement = document.createElement("a")
-    exElement.setAttribute("href","javascript:void(0)");
+    exElement.setAttribute("href", "javascript:void(0)");
     exElement.setAttribute("class", "closebtn");
     exElement.setAttribute("onclick", "closeRightNav()");
     exElement.textContent = `✖`;
@@ -86,7 +86,7 @@ function updateRightSidebar(data) {
     imageElement.alt = data.recipe.label; // alternative text - Evan.
 
     // Append elements to the right sidebar
-    
+
     rightSidebar.appendChild(exElement);
     rightSidebar.appendChild(recipeNameElement);
     rightSidebar.appendChild(heartElement);
@@ -158,25 +158,25 @@ if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length
     const nutritionCard = document.createElement("div");
     nutritionCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
 
-    // Create title element for nutrition facts - Kenny
-    const nutritionTitle = document.createElement("h4");
-    nutritionTitle.textContent = "Nutrition Facts";
-    nutritionCard.appendChild(nutritionTitle);
+        // Create title element for nutrition facts - Kenny
+        const nutritionTitle = document.createElement("h4");
+        nutritionTitle.textContent = "Nutrition Facts";
+        nutritionCard.appendChild(nutritionTitle);
 
     const nutritionCardBody = document.createElement("div");
     nutritionCardBody.className = "sidebar-card";
 
-    // Add nutrition facts to the card - Kenny
-    for (const nutrient of Object.values(data.recipe.totalNutrients)) {
-        const nutrientElement = document.createElement("p");
-        nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
-        nutritionCardBody.appendChild(nutrientElement);
-    }
+        // Add nutrition facts to the card - Kenny
+        for (const nutrient of Object.values(data.recipe.totalNutrients)) {
+            const nutrientElement = document.createElement("p");
+            nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
+            nutritionCardBody.appendChild(nutrientElement);
+        }
 
-    // Append nutrition card - Kenny
-    nutritionCard.appendChild(nutritionCardBody);
-    rightSidebar.appendChild(nutritionCard);
-}
+        // Append nutrition card - Kenny
+        nutritionCard.appendChild(nutritionCardBody);
+        rightSidebar.appendChild(nutritionCard);
+    }
 
 
     saveBtnFnc();
@@ -245,32 +245,53 @@ function updateRightSidebarForIngredients(data) {
          nutritionCardBody.className = "sidebar-card";
 
          console.log('Data for right sidebar (ingredients):', data);
-
-        for (const nutrient of Object.values(data.food.nutrients)) {
-            const nutrientElement = document.createElement("p");
-            console.log('Nutrient quantity:', nutrient.quantity);
-        const quantityText = nutrient.quantity !== undefined ? nutrient.quantity.toFixed(2) : 'N/A';  // Checks if quantity is defined before using toFixed - Evan.
-        nutrientElement.textContent = `${nutrient.label}: ${quantityText} ${nutrient.unit}`;
-        nutritionCardBody.appendChild(nutrientElement);
-        console.log('Data for right sidebar (ingredients):', data);
-        }
-   
-
-             // Favorites button - Mykhailo
-         const heartElement = document.createElement("button");
-         heartElement.setAttribute("id", "save-btn");
-         heartElement.textContent = `❤`;
         
-    // Appends elements to the right sidebar for ingredients - Evan.
-    rightSidebar.appendChild(ingredientNameElement);
-    rightSidebar.appendChild(heartElement);
-    rightSidebar.appendChild(dietTypeElement);
-    rightSidebar.appendChild(imageElement);
-    rightSidebar.appendChild(nutritionCard);
-    nutritionCard.appendChild(nutritionCardBody);
+        for(let i = 0; i < 6; i++){
+            const nutritionEl = document.createElement("p");
+            nutritionEl.setAttribute("class", "card-body text-center mb-3");
+            if(i === 0){
+                nutritionEl.textContent = `Energy: ${data.food.nutrients.ENERC_KCAL} KCal`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 1){
+                nutritionEl.textContent = `Carbohydrates: ${data.food.nutrients.CHOCDF} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 2){
+                nutritionEl.textContent = `Fat: ${data.food.nutrients.FAT} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 3){
+                nutritionEl.textContent = `Fiber: ${data.food.nutrients.FIBTG} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 4){
+                nutritionEl.textContent = `Protein: ${data.food.nutrients.PROCNT} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 5){
+                nutritionEl.textContent = `Weight: 100 g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+        }
+       
+        
 
-    saveBtnFnc();
-}
+        // Favorites button - Mykhailo
+        const heartElement = document.createElement("button");
+        heartElement.setAttribute("id", "save-btn");
+        heartElement.textContent = `❤`;
+
+        // Appends elements to the right sidebar for ingredients - Evan.
+        rightSidebar.appendChild(ingredientNameElement);
+        rightSidebar.appendChild(heartElement);
+        rightSidebar.appendChild(dietTypeElement);
+        rightSidebar.appendChild(imageElement);
+        rightSidebar.appendChild(nutritionCard);
+        nutritionCard.appendChild(nutritionCardBody);
+
+        saveBtnFnc();
+    }
 }
 
 
@@ -294,7 +315,7 @@ document.addEventListener("mouseup", function (e) {
 
 // function for print card with object
 function recipesCardPrint(value) {
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < value.hits.length; i++) {
         let cardBody = $("<div>");
         cardBody.attr("class", "card recipe-card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         cardBody.on("click", function () {
@@ -418,17 +439,17 @@ let sideBarPrint = function (data) {
 function saveBtnFnc() {
     let saveButtonEL = document.querySelector("#save-btn");
     let recipeNameEL = document.querySelector("#recipe-name");
-   
-    
+
+
     if (recipeNameEL) { //Checks if element is not null, I was getting a null console error - Evan.
-    saveButtonEL.addEventListener("click", function (event) {
-        event.preventDefault();
-        let recipeName = recipeNameEL.innerText.trim();
-        console.log(recipeName);
-        favoriteArray.push(recipeName);
-        localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
-    });
-}
+        saveButtonEL.addEventListener("click", function (event) {
+            event.preventDefault();
+            let recipeName = recipeNameEL.innerText.trim();
+            console.log(recipeName);
+            favoriteArray.push(recipeName);
+            localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
+        });
+    }
 }
 
 // function to print favorite recipes from local storage
@@ -465,13 +486,13 @@ $(".favorite-btn").on("click", ".favorite-delete-btn", function (event) {
 })
 
 // event listener for favorite buttons
-$("#favorites").on("click", ".favorite-btn", function(event){   
+$("#favorites").on("click", ".favorite-btn", function (event) {
     console.log(event.target.innerText);
     favoriteAPIFunc(event.target.innerText);
     closeNav();
 })
 // function for favorite button listener
-function favoriteAPIFunc(value){
+function favoriteAPIFunc(value) {
     let recipeURL = `https://api.edamam.com/api/recipes/v2?type=public&q=${value}&app_id=44de2717&app_key=14618b6281e3b3df95ee06e6cda63a8d&imageSize=SMALL`;
 
     fetch(recipeURL)
@@ -485,9 +506,10 @@ function favoriteAPIFunc(value){
 }
 
 // event listener for history button
-$("#history").on("click", ".side-btn", function(event){
+$("#history").on("click", ".side-btn", function (event) {
     console.log(event.target.innerText);
-    takeRecipe(event.target.innerText);
+    let selectedRecipe = event.target.innerText;
+    takeRecipe(selectedRecipe, updateRightSidebar);
     openRightNav();
     closeNav();
-}) 
+});
