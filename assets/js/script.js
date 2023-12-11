@@ -240,17 +240,38 @@ function updateRightSidebarForIngredients(data) {
         const nutritionCardBody = document.createElement("div");
         nutritionCardBody.className = "card-body";
 
-        console.log('Data for right sidebar (ingredients):', data);
-
-        for (const nutrient of Object.values(data.food.nutrients)) {
-            const nutrientElement = document.createElement("p");
-            console.log('Nutrient quantity:', nutrient.quantity);
-            const quantityText = nutrient.quantity !== undefined ? nutrient.quantity.toFixed(2) : 'N/A';  // Checks if quantity is defined before using toFixed - Evan.
-            nutrientElement.textContent = `${nutrient.label}: ${quantityText} ${nutrient.unit}`;
-            nutritionCardBody.appendChild(nutrientElement);
-            console.log('Data for right sidebar (ingredients):', data);
+         console.log('Data for right sidebar (ingredients):', data);
+        
+        for(let i = 0; i < 6; i++){
+            const nutritionEl = document.createElement("p");
+            nutritionEl.setAttribute("class", "card-body text-center mb-3");
+            if(i === 0){
+                nutritionEl.textContent = `Energy: ${data.food.nutrients.ENERC_KCAL} KCal`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 1){
+                nutritionEl.textContent = `Carbohydrates: ${data.food.nutrients.CHOCDF} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 2){
+                nutritionEl.textContent = `Fat: ${data.food.nutrients.FAT} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 3){
+                nutritionEl.textContent = `Fiber: ${data.food.nutrients.FIBTG} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 4){
+                nutritionEl.textContent = `Protein: ${data.food.nutrients.PROCNT} g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
+            if(i === 5){
+                nutritionEl.textContent = `Weight: 100 g`;
+                nutritionCardBody.appendChild(nutritionEl);
+            }
         }
-
+       
+        
 
         // Favorites button - Mykhailo
         const heartElement = document.createElement("button");
@@ -290,7 +311,7 @@ document.addEventListener("mouseup", function (e) {
 
 // function for print card with object
 function recipesCardPrint(value) {
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < value.hits.length; i++) {
         let cardBody = $("<div>");
         cardBody.attr("class", "card recipe-card text-center cell small-auto medium-6 bg-light my-2 px-2 rounded align-self-center")
         cardBody.on("click", function () {
