@@ -176,3 +176,11 @@ label {
 .card-body {
     background-color: aliceblue;
 }
+
+.recipe-card:hover {
+    cursor: pointer;
+}
+
+.ingredient-card:hover {
+    cursor: pointer;
+}
