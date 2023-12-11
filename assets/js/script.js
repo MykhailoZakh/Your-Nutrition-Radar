@@ -82,6 +82,7 @@ function updateRightSidebar(data) {
 
     // Should create an image element - Evan.
     const imageElement = document.createElement("img");
+    imageElement.setAttribute("id","sidebar-img");
     imageElement.src = data.recipe.image;
     imageElement.alt = data.recipe.label; // alternative text - Evan.
 
@@ -161,6 +162,7 @@ if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length
         // Create title element for nutrition facts - Kenny
         const nutritionTitle = document.createElement("h4");
         nutritionTitle.textContent = "Nutrition Facts";
+        nutritionTitle.className = "text-center";
         nutritionCard.appendChild(nutritionTitle);
 
     const nutritionCardBody = document.createElement("div");
@@ -170,6 +172,7 @@ if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length
         for (const nutrient of Object.values(data.recipe.totalNutrients)) {
             const nutrientElement = document.createElement("p");
             nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
+            nutrientElement.className = "text-center my-2 border-bottom";
             nutritionCardBody.appendChild(nutrientElement);
         }
 
@@ -227,7 +230,7 @@ function updateRightSidebarForIngredients(data) {
     rightSidebar.innerHTML = "";
     const ingredientNameElement = document.createElement("h3");
     ingredientNameElement.textContent = data.food.label;
-    ingredientNameElement.setAttribute("id", "ingredient-name");
+    ingredientNameElement.setAttribute("id", "recipe-name");
 
     const dietTypeElement = document.createElement("p");
     const imageElement = document.createElement("img");
@@ -239,7 +242,7 @@ function updateRightSidebarForIngredients(data) {
  
          // Nutrition facts card - Kenny
          const nutritionCard = document.createElement("div");
-         nutritionCard.className = "card text-center mb-3";
+         nutritionCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-center";
  
          const nutritionCardBody = document.createElement("div");
          nutritionCardBody.className = "sidebar-card";
@@ -248,7 +251,7 @@ function updateRightSidebarForIngredients(data) {
         
         for(let i = 0; i < 6; i++){
             const nutritionEl = document.createElement("p");
-            nutritionEl.setAttribute("class", "card-body text-center mb-3");
+            nutritionEl.setAttribute("class", "text-center my-2 border-bottom");
             if(i === 0){
                 nutritionEl.textContent = `Energy: ${data.food.nutrients.ENERC_KCAL} KCal`;
                 nutritionCardBody.appendChild(nutritionEl);

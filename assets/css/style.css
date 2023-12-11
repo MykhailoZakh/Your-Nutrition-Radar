@@ -138,6 +138,10 @@ label {
     }
 }
 
+#sidebar-img {
+    width: 100%;
+}
+
 #save-btn {
     display: inline;
     color: white;
@@ -147,9 +151,11 @@ label {
 
 #recipe-name{
     display: inline;
-    color: white;
+    color: #88CA5E;
     font-size: 30px;
+    padding-left: 5px;
 }
+
 .sideP {
     text-align: center;
     padding: 5px;
