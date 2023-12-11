@@ -73,7 +73,20 @@ function updateRightSidebar(data) {
     // Should create element to display ❤ button - Mykhailo
     const heartElement = document.createElement("button");
     heartElement.setAttribute("id", "save-btn");
+    
     heartElement.textContent = `❤`;
+
+    let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
+    console.log(storedFavorites);
+    for(let i = 0; i < storedFavorites.length; i ++){
+        if(storedFavorites[i] == data.recipe.label){
+            heartElement.removeAttribute("id", "save-btn");
+            heartElement.setAttribute("class", "saved-btn");
+            console.log(storedFavorites[i]);
+            console.log(data.recipe.label);
+            break;
+        }
+    }
 
     // Should create elements to display recipe details - Evan.
     const recipeNameElement = document.createElement("h3");
@@ -130,29 +143,6 @@ function updateRightSidebar(data) {
         noIngredientsCard.appendChild(noIngredientsCardBody);
         rightSidebar.appendChild(noIngredientsCard);
     }
-
-    // // New section - Create card for cooking instructions - Kenny
-    // if (data.recipe.cookingInstructions) {
-    //     const instructionsCard = document.createElement("div");
-    //     instructionsCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
-
-    //     const instructionsCardBody = document.createElement("div");
-    //     instructionsCardBody.className = "sidebar-card";
-
-    //     // Add cooking instructions to the card - Kenny
-    //     const instructionsTitle = document.createElement("h4");
-    //     instructionsTitle.textContent = "Cooking Instructions";
-    //     instructionsTitle.className = "text-center";
-    //     instructionsCardBody.appendChild(instructionsTitle);
-
-    //     const instructionsElement = document.createElement("p");
-    //     instructionsElement.textContent = data.recipe.cookingInstructions;
-    //     instructionsCardBody.appendChild(instructionsElement);
-
-    //     // Append instructions card - Kenny
-    //     instructionsCard.appendChild(instructionsCardBody);
-    //     rightSidebar.appendChild(instructionsCard);
-    // }
 
 // Create card for nutrition facts - Kenny
 if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length > 0) {
@@ -305,15 +295,12 @@ function updateRightSidebarForIngredients(data) {
                 nutritionCardBody.appendChild(nutritionEl);
             }
             openRightNav();
-        }
-       
-        
+        }   
 
         // Favorites button - Mykhailo
         const heartElement = document.createElement("button");
         heartElement.setAttribute("id", "save-btn");
         heartElement.textContent = `❤`;
-
         // Appends elements to the right sidebar for ingredients - Evan.
         rightSidebar.appendChild(exElement);
         rightSidebar.appendChild(ingredientNameElement);
@@ -457,7 +444,7 @@ let clear = document.querySelector("#clear-btn");
 clear.addEventListener("click", function () {
     let empty = [];
     localStorage.setItem("recipeValue", JSON.stringify(empty));
-    // localStorage.setItem("favoriteRecipe", JSON.stringify(empty));
+    // localStorage.setItem("favoriteRecipe", JSON.stringify(empty));chickenduck
     let sideBtnArreyEL = document.querySelectorAll(".side-btn");
     for (let i = 0; i < sideBtnArreyEL.length; i++) {
         sideBtnArreyEL[i].remove();
@@ -469,20 +456,23 @@ let sideBarPrint = function (data) {
     // event.preventDefault();
     document.getElementById("recipe-name").textContent = `${data.hits[0].recipe.label}`;
 }
+// function for save button
 function saveBtnFnc() {
     let saveButtonEL = document.querySelector("#save-btn");
+    let savedButtonEL = document.querySelector("#saved-btn");
     let recipeNameEL = document.querySelector("#recipe-name");
 
-
-    if (recipeNameEL) { //Checks if element is not null, I was getting a null console error - Evan.
-        saveButtonEL.addEventListener("click", function (event) {
-            event.preventDefault();
-            let recipeName = recipeNameEL.innerText.trim();
-            console.log(recipeName);
-            favoriteArray.push(recipeName);
-            localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
-        });
-    }
+    if(saveButtonEL){
+        if (recipeNameEL) { //Checks if element is not null, I was getting a null console error - Evan.
+            saveButtonEL.addEventListener("click", function (event) {
+                event.preventDefault();
+                let recipeName = recipeNameEL.innerText.trim();
+                console.log(recipeName);
+                favoriteArray.push(recipeName);
+                localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
+            });
+        }
+    } 
 }
 
 // function to print favorite recipes from local storage
