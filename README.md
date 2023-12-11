@@ -13,11 +13,12 @@ Upon searching, the recipes, ingredients, and nutrition facts are generated belo
 Bootstrap - Formatting and Layout
 Edamam - API for Food Data
 
-
 ## Link and Screenshots
 Deployment URL: https://mykhailozakh.github.io/Your-Nutrition-Radar/
+![Homepage](./assets/Images/Your-Nutrition-Radar-Home.png)
 
 ## Contributors
-Evan Beck: https://github.com/Evan-Beck
-Mykhalio Zakharkiv: https://github.com/MykhailoZakh
-Ryan Sauter: https://github.com/RedKnight88
+<li>Evan Beck: https://github.com/Evan-Beck </li>
+<li>Kenny Cummings: https://github.com/kennycummings </li>
+<li>Ryan Sauter: https://github.com/RedKnight88 </li>
+<li>Mykhalio Zakharkiv: https://github.com/MykhailoZakh </li>
