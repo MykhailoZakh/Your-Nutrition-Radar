@@ -149,25 +149,31 @@ function updateRightSidebar(data) {
         rightSidebar.appendChild(instructionsCard);
     }
 
-    // Create card for nutrition facts - Kenny
-    if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length > 0) {
-        const nutritionCard = document.createElement("div");
-        nutritionCard.className = "card-body text-center mb-3";
+// Create card for nutrition facts - Kenny
+if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length > 0) {
+    const nutritionCard = document.createElement("div");
+    nutritionCard.className = "card-body text-center mb-3";
 
-        const nutritionCardBody = document.createElement("div");
-        nutritionCardBody.className = "card-body";
+    // Create title element for nutrition facts - Kenny
+    const nutritionTitle = document.createElement("h4");
+    nutritionTitle.textContent = "Nutrition Facts";
+    nutritionCard.appendChild(nutritionTitle);
 
-        // Add nutrition facts to the card - Kenny
-        for (const nutrient of Object.values(data.recipe.totalNutrients)) {
-            const nutrientElement = document.createElement("p");
-            nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
-            nutritionCardBody.appendChild(nutrientElement);
-        }
+    const nutritionCardBody = document.createElement("div");
+    nutritionCardBody.className = "card-body";
 
-        // Append nutrition card - Kenny
-        nutritionCard.appendChild(nutritionCardBody);
-        rightSidebar.appendChild(nutritionCard);
+    // Add nutrition facts to the card - Kenny
+    for (const nutrient of Object.values(data.recipe.totalNutrients)) {
+        const nutrientElement = document.createElement("p");
+        nutrientElement.textContent = `${nutrient.label}: ${nutrient.quantity.toFixed(2)} ${nutrient.unit}`;
+        nutritionCardBody.appendChild(nutrientElement);
     }
+
+    // Append nutrition card - Kenny
+    nutritionCard.appendChild(nutritionCardBody);
+    rightSidebar.appendChild(nutritionCard);
+}
+
 
     saveBtnFnc();
 }
