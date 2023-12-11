@@ -131,29 +131,6 @@ function updateRightSidebar(data) {
         rightSidebar.appendChild(noIngredientsCard);
     }
 
-    // // New section - Create card for cooking instructions - Kenny
-    // if (data.recipe.cookingInstructions) {
-    //     const instructionsCard = document.createElement("div");
-    //     instructionsCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
-
-    //     const instructionsCardBody = document.createElement("div");
-    //     instructionsCardBody.className = "sidebar-card";
-
-    //     // Add cooking instructions to the card - Kenny
-    //     const instructionsTitle = document.createElement("h4");
-    //     instructionsTitle.textContent = "Cooking Instructions";
-    //     instructionsTitle.className = "text-center";
-    //     instructionsCardBody.appendChild(instructionsTitle);
-
-    //     const instructionsElement = document.createElement("p");
-    //     instructionsElement.textContent = data.recipe.cookingInstructions;
-    //     instructionsCardBody.appendChild(instructionsElement);
-
-    //     // Append instructions card - Kenny
-    //     instructionsCard.appendChild(instructionsCardBody);
-    //     rightSidebar.appendChild(instructionsCard);
-    // }
-
 // Create card for nutrition facts - Kenny
 if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length > 0) {
     const nutritionCard = document.createElement("div");
@@ -267,6 +244,7 @@ function updateRightSidebarForIngredients(data) {
         ingredientNameElement.textContent = data.food.label;
         imageElement.src = data.food.image;
         imageElement.alt = data.food.label;
+        imageElement.setAttribute("id","sidebar-img");
  
          // Nutrition facts card - Kenny
          const nutritionCard = document.createElement("div");
@@ -359,9 +337,10 @@ function recipesCardPrint(value) {
         recipeName.attr("class", "card-title");
         let image = $("<img>");
         image.attr("src", `${value.hits[i].recipe.images.REGULAR.url}`)
-        image.attr("class", "header-icon border-dark rounded");
+        image.attr("class", "card-icon border-dark rounded");
         let dietType = $("<p>");
         dietType.attr("class", "card-text");
+        dietType.attr("style", "font-style: italic;")
         recipeName.text(`${value.hits[i].recipe.label}`);
         dietType.text(`${value.hits[i].recipe.dietLabels}`);
         cardHolderEL.append(cardBody);
@@ -383,7 +362,7 @@ function ingredientsCardPrint(value) {
         ingredientName.attr("class", "card-title");
         let image = $("<img>");
         image.attr("src", `${value.hints[i].food.image}`)
-        image.attr("class", "header-icon border-dark rounded");
+        image.attr("class", "card-icon border-dark rounded");
         let weight = $("<p>");
         let kCal = $("<p>")
         kCal.attr("class", "card-text");

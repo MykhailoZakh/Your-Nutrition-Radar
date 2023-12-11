@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- These are the stylesheet frameworks used within the document, Bootstrap and Foundation. -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.8.1/dist/css/foundation.min.css"
@@ -13,13 +14,47 @@
 </head>
 
 <body>
-  <div class="grid-container-full">
 
-    <header class="grid-x align-right align-middle">
-      <img class="cell small-3 shrink header-icon mx-3" src="./assets/Images/Your-Nutrition-Radar-Logo.png"
+  <!-- Our header is a banner with two components. The first is a button which opens the left side
+    bar, containing prior search history and favorited recipes. The second is the logo for the
+    website, which shrinks responsively and does not overlap with the button on the smallest screens.
+    The button is fixed, but the rest of the banner is not, so when scrolling user will always
+    have access to the left sidebar. -->
+  <header class="grid-x align-right align-middle">
+    <div id="header">
+      <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <button id="clear-btn" class="empty-box">Clear History</button>
+        <section id="favorites">
+          <p class="sideP">Favorites</p>
+        </section>
+        <section id="history">
+          <p class="sideP">Search History</p>
+        </section>
+      </div>
+
+      <div id="main">
+        <button id="open-btn" class="openbtn" onclick="openNav()">&#9776; <strong>Open Favorites</strong></button>
+      </div>
+    </div>
+
+    <img class="cell small-3 shrink header-icon mx-3" src="./assets/Images/Your-Nutrition-Radar-Logo.png"
         alt="Your Nutrition Radar Logo">
-    </header>
+  </header>
 
+  <!-- This section contains the primary functionality for the webpage. The framework implements
+    both the Bootstrap and Foundation frameworks to create a responsive, interactive, and clean
+    user interface. The grid structure comes from Foundation, which uses the 'cell' and 'grid' classes.
+    The other classes come from manual styling or Bootstrap's styling classes.
+      The Form contains input areas for users to search for recipes and ingredients they wish to
+    utilize in their meals. A user can input an ingredient to find recipes with those ingredients,
+    or if they wish to learn nutritional information about those ingredients alone. There is also a
+    dropdown containing different dietary constraints to apply to the search.
+      After the form, there is a section which acts as a container for the search results to populate.
+    These utilize both the Bootstrap card styling and the Foundation grid structure. Those populate
+    from within our script file. They also contain scripts which allow them to be clicked, and
+    open up the right sidebar for full recipe details.-->
+  <main class="grid-container-full">
     <form class="grid-x grid-margin-y grid-margin-x mx-2" id="form">
       <div class="cell small-auto medium-6 bg-light my-2 px-2 rounded">
         <label for="input" class="cell my-1 form-label">Find a Recipe</label>
@@ -49,55 +84,22 @@
       </div>
     </form>
 
-    <!--What Kenny added-->
-
-    <div id="header">
-      <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <button id="clear-btn" class="empty-box">Clear History</button>
-        <section id="favorites">
-          <p class="sideP">Favorites</p>
-        </section>
-        <section id="history">
-          <p class="sideP">Search History</p>
-        </section>
-      </div>
-
-      <div id="main">
-        <button id="open-btn" class="openbtn" onclick="openNav()">&#9776; <strong>Open Favorites</strong></button>
-      </div>
-      
-    </div>
-
-    <!--What Kenny added-->
-
-    <section>
-      <p id="object" class="grid-x grid-margin-y grid-margin-x mx-2">
-        <section hidden class="card recipe-card"></section>
-        <section hidden class="card"></section>
-        <section hidden class="card"></section>
-        <section hidden class="card"></section>
-      </p>
+    <section id="object" class="grid-x grid-margin-y grid-margin-x mx-2">
     </section>
 
+  </main>
+
+  <!-- This is our right sidebar, which fully expands the details for the recipes or ingredients.
+  It is fixed to the screen once it opens, and contains other functional elements. There is an
+  'X' to close it out and a favorites button to add the recipe to the left sidebar. Again, this
+  populates dynamically from our script files, more details are located in the comments over there.-->
+  <div id="rightSidebar" class="right-sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeRightNav()">&times;</a>
   </div>
 
-  <!-- New right sidebar - Evan. -->
-<div id="rightSidebar" class="right-sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeRightNav()">&times;</a>
-</div>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
+  <!-- These initialize jquery and our internal script in order to dynamically impact the webpage. -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-    integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
   <script src="./assets/js/script.js"></script>
-
- 
-
 
 </body>
 
