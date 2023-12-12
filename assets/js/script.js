@@ -225,7 +225,6 @@ function takeIngredients(value, updateRightSidebar) {
 }
 
 function updateRightSidebarForIngredients(data) {
-    console.log("Data for right sidebar (ingredients):", data);
     const rightSidebar = document.getElementById("rightSidebar");
 
     rightSidebar.innerHTML = "";
@@ -464,6 +463,9 @@ function saveBtnFnc() {
                 let recipeName = recipeNameEL.innerText.trim();
                 favoriteArray.push(recipeName);
                 localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
+                let heartElement = document.querySelector("#save-btn");
+                heartElement.removeAttribute("id", "save-btn");
+                heartElement.setAttribute("class", "saved-btn");
             });
         }
     } 
