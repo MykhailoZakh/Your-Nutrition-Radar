@@ -5,7 +5,7 @@ body {
     background-color: #88CA5E;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
+/* Header and heading elements. Added white background color, aligned text to the center. Used italics for h4 to distinguish sections. */
 header {
     background-color: white;
     padding-bottom: 0;
@@ -51,7 +51,7 @@ label {
     min-height: auto;
     min-width: auto;
 }
-
+/* Hover function to show the user they can pick a diet restriction. */
 #dietInput:hover {
     cursor: pointer;
 }
@@ -59,7 +59,7 @@ label {
 #header {
     position: relative;
 }
-
+/* elements for the left sidebar text, color, positioning, hover function etc. */
 .sidebar {
     width: 0;
     height: 100%;
@@ -88,12 +88,12 @@ label {
 .sidebar a:hover {
     color:#88CA5E;
 }
-
+/* Margin pixel size for main. */
 #main {
     margin-left: 250px;
     transition: margin-left 0.5s;
 }
-
+/* elements for open and close buttons. */
 .openbtn {
     position: fixed;
     top: 0px;
@@ -152,7 +152,7 @@ label {
 #sidebar-img {
     width: 100%;
 }
-
+/* save button elements. Displays inline on the right side, next to titles on the right sidebar. */
 #save-btn {
     display: inline;
     color: white;
@@ -185,7 +185,7 @@ label {
     background-color: #88CA5E;
     color: white; 
 }
-
+/* Delete button for favorites. */
 .favorite-delete-btn::after { content: "\2716"; }
 
 .favorite-delete-btn {
@@ -196,6 +196,7 @@ label {
 
 }
 
+/* Recipe, ingredient, and sidebar card margins and colors. Added pointer hover for cursor over the cards.  */
 .recipe-card {
     margin-bottom: 20px;
 }
