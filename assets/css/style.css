@@ -17,6 +17,10 @@ h1 {
     font-size: auto;
 }
 
+h3 {
+    font-weight:bolder;
+}
+
 h4 {
     font-size: 1.5em;
     font-style: italic;
@@ -38,8 +42,14 @@ label {
 
 .card {
     position: inherit;
-    overflow: auto;
-    height: auto;
+    overflow: hidden;
+    min-height: 300px;
+    max-height: 300px;
+}
+
+.card-icon {
+    min-height: auto;
+    min-width: auto;
 }
 /* Hover function to show the user they can pick a diet restriction. */
 #dietInput:hover {
@@ -117,7 +127,6 @@ label {
     display: block;
 }
 
-/* Right sidebar dimensions - Evan. */
 .right-sidebar {
     width: 0;
     height: 100%;
@@ -189,9 +198,8 @@ label {
 
 /* Recipe, ingredient, and sidebar card margins and colors. Added pointer hover for cursor over the cards.  */
 .recipe-card {
-    margin-bottom: 20px; /* Adjust as needed */
+    margin-bottom: 20px;
 }
-
 
 .recipe-card:hover {
     cursor: pointer;
@@ -208,4 +216,11 @@ label {
 #recipe-button, #ingredients-button {
     background-color: #ebb23e;
     color: white;
+}
+
+.saved-btn {
+    color: red;
+    display: inline;
+    font-size: 30px;
+    margin-left: 10px;
 }

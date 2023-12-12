@@ -15,16 +15,13 @@ let inputListener = function (event) {
 
     // local storage
     recipeArray.push(inputValue);
-    console.log(recipeArray);
     localStorage.setItem("recipeValue", JSON.stringify(recipeArray));
     // recipesFromLocalStorage();
 
     if (!dietInput) {
         takeRecipe(inputValue, updateRightSidebar); // Should pass the updateRightSidebar function as a callback - Evan.
-        console.log(inputValue, updateRightSidebar);
     } else {
         takeRecipeWDiet(inputValue, dietInput, updateRightSidebar); // Should pass the updateRightSidebar function as a callback - Evan.
-        console.log(inputValue, dietInput, updateRightSidebar);
     }
     openRightNav(); // When user inputs recipe and selects diet, right nav should appear - Evan.
 };
@@ -40,7 +37,6 @@ function takeRecipeWDiet(value, diet, updateRightSidebar) {
             cardDelete();
             recipesCardPrint(data);
             updateRightSidebar(data.hits[0]); // Should pass the first recipe to the callback - Evan.
-            console.log(data);
         })
 };
 
@@ -54,17 +50,13 @@ function takeRecipe(value) {
             cardDelete();
             recipesCardPrint(data);
             updateRightSidebar(data.hits[0]); // Pass the first recipe to the callback - Evan.
-
-            console.log(data);
         });
 }
 
 function updateRightSidebar(data) {
-    console.log("Data for right sidebar:", data);
     if (data && data.recipe) { // test - evan.
 
     const rightSidebar = document.getElementById("rightSidebar");
-
     rightSidebar.innerHTML = "";
     const exElement = document.createElement("a")
     exElement.setAttribute("href", "javascript:void(0)");
@@ -74,8 +66,20 @@ function updateRightSidebar(data) {
     // Should create element to display ❤ button - Mykhailo
     const heartElement = document.createElement("button");
     heartElement.setAttribute("id", "save-btn");
+    
     heartElement.textContent = `❤`;
 
+    let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
+    
+    if(storedFavorites !== null){
+        for(let i = 0; i < storedFavorites.length; i ++){
+            if(storedFavorites[i] == data.recipe.label){
+                heartElement.removeAttribute("id", "save-btn");
+                heartElement.setAttribute("class", "saved-btn");
+                break;
+            }
+    }
+    }
     // Should create elements to display recipe details - Evan.
     const recipeNameElement = document.createElement("h3");
     recipeNameElement.textContent = data.recipe.label;
@@ -131,29 +135,6 @@ function updateRightSidebar(data) {
         noIngredientsCard.appendChild(noIngredientsCardBody);
         rightSidebar.appendChild(noIngredientsCard);
     }
-
-    // // New section - Create card for cooking instructions - Kenny
-    // if (data.recipe.cookingInstructions) {
-    //     const instructionsCard = document.createElement("div");
-    //     instructionsCard.className = "sidebar-card my-2 mx-1 px-2 rounded align-self-center";
-
-    //     const instructionsCardBody = document.createElement("div");
-    //     instructionsCardBody.className = "sidebar-card";
-
-    //     // Add cooking instructions to the card - Kenny
-    //     const instructionsTitle = document.createElement("h4");
-    //     instructionsTitle.textContent = "Cooking Instructions";
-    //     instructionsTitle.className = "text-center";
-    //     instructionsCardBody.appendChild(instructionsTitle);
-
-    //     const instructionsElement = document.createElement("p");
-    //     instructionsElement.textContent = data.recipe.cookingInstructions;
-    //     instructionsCardBody.appendChild(instructionsElement);
-
-    //     // Append instructions card - Kenny
-    //     instructionsCard.appendChild(instructionsCardBody);
-    //     rightSidebar.appendChild(instructionsCard);
-    // }
 
 // Create card for nutrition facts - Kenny
 if (data.recipe.totalNutrients && Object.keys(data.recipe.totalNutrients).length > 0) {
@@ -216,9 +197,6 @@ function ingredientsListener(event) {
     let ingredientsValue = ingredientsInputEL.value.trim();
     // let dietInput = dietInputEL.value;
 
-    if (ingredientsValue && dietInput) {
-        openRightNav();
-    }
     takeIngredients(ingredientsValue, updateRightSidebarForIngredients);
 }
 
@@ -242,7 +220,7 @@ function takeIngredients(value, updateRightSidebar) {
                     console.error("No hints data found for ingredients.");
                 }
             }
-            console.log(data);
+        
         });
 }
 
@@ -268,6 +246,7 @@ function updateRightSidebarForIngredients(data) {
         ingredientNameElement.textContent = data.food.label;
         imageElement.src = data.food.image;
         imageElement.alt = data.food.label;
+        imageElement.setAttribute("id","sidebar-img");
  
          // Nutrition facts card - Kenny
          const nutritionCard = document.createElement("div");
@@ -276,7 +255,6 @@ function updateRightSidebarForIngredients(data) {
          const nutritionCardBody = document.createElement("div");
          nutritionCardBody.className = "sidebar-card";
 
-         console.log('Data for right sidebar (ingredients):', data);
         
         for(let i = 0; i < 6; i++){
             const nutritionEl = document.createElement("p");
@@ -306,15 +284,12 @@ function updateRightSidebarForIngredients(data) {
                 nutritionCardBody.appendChild(nutritionEl);
             }
             openRightNav();
-        }
-       
-        
+        }   
 
         // Favorites button - Mykhailo
         const heartElement = document.createElement("button");
         heartElement.setAttribute("id", "save-btn");
         heartElement.textContent = `❤`;
-
         // Appends elements to the right sidebar for ingredients - Evan.
         rightSidebar.appendChild(exElement);
         rightSidebar.appendChild(ingredientNameElement);
@@ -363,9 +338,10 @@ function recipesCardPrint(value) {
         recipeName.attr("class", "card-title");
         let image = $("<img>");
         image.attr("src", `${value.hits[i].recipe.images.REGULAR.url}`)
-        image.attr("class", "header-icon border-dark rounded");
+        image.attr("class", "card-icon border-dark rounded");
         let dietType = $("<p>");
         dietType.attr("class", "card-text");
+        dietType.attr("style", "font-style: italic;")
         recipeName.text(`${value.hits[i].recipe.label}`);
         dietType.text(`${value.hits[i].recipe.dietLabels}`);
         cardHolderEL.append(cardBody);
@@ -389,7 +365,7 @@ function ingredientsCardPrint(value) {
         ingredientName.attr("class", "card-title");
         let image = $("<img>");
         image.attr("src", `${value.hints[i].food.image}`)
-        image.attr("class", "header-icon border-dark rounded");
+        image.attr("class", "card-icon border-dark rounded");
         let weight = $("<p>");
         let kCal = $("<p>")
         kCal.attr("class", "card-text");
@@ -408,7 +384,6 @@ function ingredientsCardPrint(value) {
 // function to delete card after click
 function cardDelete() {
     let cardArrayEL = document.querySelectorAll(".card");
-    console.log(cardArrayEL);
     for (let i = 0; i < cardArrayEL.length; i++) {
         cardArrayEL[i].remove();
     }
@@ -464,7 +439,7 @@ let clear = document.querySelector("#clear-btn");
 clear.addEventListener("click", function () {
     let empty = [];
     localStorage.setItem("recipeValue", JSON.stringify(empty));
-    // localStorage.setItem("favoriteRecipe", JSON.stringify(empty));
+    // localStorage.setItem("favoriteRecipe", JSON.stringify(empty));chickenduck
     let sideBtnArreyEL = document.querySelectorAll(".side-btn");
     for (let i = 0; i < sideBtnArreyEL.length; i++) {
         sideBtnArreyEL[i].remove();
@@ -476,20 +451,22 @@ let sideBarPrint = function (data) {
     // event.preventDefault();
     document.getElementById("recipe-name").textContent = `${data.hits[0].recipe.label}`;
 }
+// function for save button
 function saveBtnFnc() {
     let saveButtonEL = document.querySelector("#save-btn");
+    let savedButtonEL = document.querySelector("#saved-btn");
     let recipeNameEL = document.querySelector("#recipe-name");
 
-
-    if (recipeNameEL) { //Checks if element is not null, I was getting a null console error - Evan.
-        saveButtonEL.addEventListener("click", function (event) {
-            event.preventDefault();
-            let recipeName = recipeNameEL.innerText.trim();
-            console.log(recipeName);
-            favoriteArray.push(recipeName);
-            localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
-        });
-    }
+    if(saveButtonEL){
+        if (recipeNameEL) { //Checks if element is not null, I was getting a null console error - Evan.
+            saveButtonEL.addEventListener("click", function (event) {
+                event.preventDefault();
+                let recipeName = recipeNameEL.innerText.trim();
+                favoriteArray.push(recipeName);
+                localStorage.setItem("favoriteRecipe", JSON.stringify(favoriteArray));
+            });
+        }
+    } 
 }
 
 // function to print favorite recipes from local storage
@@ -513,7 +490,6 @@ favoritesFromLocalStorage();
 
 // event listener for X button to remove item from favorites
 $(".favorite-btn").on("click", ".favorite-delete-btn", function (event) {
-    console.log(`${event.target.parentElement.innerText}`);
     let storedFavorites = JSON.parse(localStorage.getItem("favoriteRecipe"));
     if (storedFavorites !== null) {
         favoriteArray = storedFavorites;
@@ -527,7 +503,6 @@ $(".favorite-btn").on("click", ".favorite-delete-btn", function (event) {
 
 // event listener for favorite buttons
 $("#favorites").on("click", ".favorite-btn", function (event) {
-    console.log(event.target.innerText);
     favoriteAPIFunc(event.target.innerText);
     closeNav();
 })
@@ -539,7 +514,6 @@ function favoriteAPIFunc(value) {
         .then(function (response) {
             return response.json();
         }).then(function (data) {
-            console.log(data);
             updateRightSidebar(data.hits[0]);
             openRightNav();
         });
@@ -547,7 +521,6 @@ function favoriteAPIFunc(value) {
 
 // event listener for history button
 $("#history").on("click", ".side-btn", function (event) {
-    console.log(event.target.innerText);
     let selectedRecipe = event.target.innerText;
     takeRecipe(selectedRecipe, updateRightSidebar);
     openRightNav();
